@@ -714,6 +714,13 @@ export default function AdminDashboard() {
               {/* Input */}
               <div className="p-6 bg-dark-900 z-10">
                 <div className="bg-dark-800 rounded-3xl ring ring-brand-yellow/30 p-2 flex items-center gap-2">
+                  <button 
+                    onClick={handleRequestDetails}
+                    title="Request Contact Details"
+                    className="h-10 w-10 rounded-full  hover:bg-dark-700 text-gray-400 hover:text-brand-yellow flex items-center justify-center transition-colors"
+                  >
+                    <Mail size={20} />
+                  </button>
                   <button className="h-10 w-10 rounded-full  hover:bg-dark-700 text-gray-400 flex items-center justify-center">
                     <Paperclip size={20} />
                   </button>
@@ -1006,13 +1013,6 @@ export default function AdminDashboard() {
                   {/* Input */}
           <div className="p-6 bg-dark-900 z-10">
                 <div className="bg-dark-800 rounded-3xl ring ring-brand-yellow/30 p-2 flex items-center gap-2">
-                  <button 
-                    onClick={handleRequestDetails}
-                    title="Request Contact Details"
-                    className="h-10 w-10 rounded-full  hover:bg-dark-700 text-gray-400 hover:text-brand-yellow flex items-center justify-center transition-colors"
-                  >
-                    <Mail size={20} />
-                  </button>
                   <button className="h-10 w-10 rounded-full  hover:bg-dark-700 text-gray-400 flex items-center justify-center">
                     <Paperclip size={20} />
                   </button>
