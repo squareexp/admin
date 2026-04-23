@@ -6,6 +6,11 @@ const publicRoutes = [
   '/session/access',
   '/session/new',
   '/session/verify',
+  '/session/reset-password',
+  '/privacy-policy',
+  '/terms-of-service',
+  '/guide',
+  '/invoice-status',
 ];
 
 export function proxy(request: NextRequest) {
@@ -23,7 +28,7 @@ export function proxy(request: NextRequest) {
 
   // Redirect to login if no token and not on a public route
   if (!token && !isPublicRoute) {
-    const loginUrl = new URL('/session/new', request.url);
+    const loginUrl = new URL('/session/access', request.url);
     return NextResponse.redirect(loginUrl);
   }
 

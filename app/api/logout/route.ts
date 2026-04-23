@@ -1,11 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://127.0.0.1:3000';
+const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://127.0.0.1:2222';
 
 export async function POST(request: NextRequest) {
   try {
-    const response = await fetch(`${API_URL}/session/logout`, {
+    await fetch(`${API_URL}/session/logout`, {
       method: 'POST',
       headers: {
         Cookie: request.headers.get('cookie') || '',
@@ -15,6 +15,7 @@ export async function POST(request: NextRequest) {
     // Clear the cookie
     const cookieStore = await cookies();
     cookieStore.delete('jwt');
+    cookieStore.delete('admin_name');
 
     return NextResponse.json({ message: 'Logged out successfully' });
   } catch (error) {

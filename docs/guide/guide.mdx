@@ -1,0 +1,175 @@
+---
+title: "Mail Persistence Guide"
+description: "How the admin mail workspace keeps mailbox data warm across tab switches and cold starts."
+---
+
+# Mail Persistence Guide
+
+This guide documents the current mail persistence model in the Square admin app and the Rust mail backend.
+
+The short version:
+
+- The Rust mail backend now keeps a durable mailbox snapshot on disk.
+- The admin mail workspace now stays mounted in the dashboard shell, so switching tabs does not wipe the inbox UI state.
+- Background refresh runs only while the mail workspace is active, which keeps the experience fast without burning extra work when the user is elsewhere.
+
+## The problem we were fixing
+
+The mail workspace behaved like a disposable page instead of a long-lived mail client.
+
+Before this fix:
+
+- `MailWorkspace.tsx` owned the fetched mailbox snapshot in local React state.
+- `WorkspaceView.tsx` only rendered the mail workspace when `activeSection === "mail"`.
+- Switching to another section unmounted the component.
+- Coming back to Mail created a fresh workspace instance, so the UI started from zero and had to fetch again.
+
+That behavior is acceptable for a regular dashboard page, but it is poor for an inbox. Mail products are expected to feel warm, immediate, and stateful.
+
+## The current architecture
+
+Mail persistence now works in two layers:
+
+### 1. Durable backend snapshot
+
+The Rust mail backend loads and stores mailbox state through SQLite.
+
+- Bootstrap entry point: `apps/rust-mail-backend/src/state.rs`
+- Persistence layer: `apps/rust-mail-backend/src/storage.rs`
+- Default database path: `apps/rust-mail-backend/data/mail-state.sqlite`
+- Override path: `RUST_MAIL_STATE_DB`
+
+On startup, `MailState::new_with_env()`:
+
+1. Loads the persisted snapshot from SQLite.
+2. Merges runtime aliases from environment-backed configuration.
+3. Exposes mailbox state immediately before fresh IMAP work completes.
+
+This means the backend no longer starts from an empty mailbox every time the Rust service restarts.
+
+### 2. Warm client workspace state
+
+The admin dashboard now keeps the mail workspace mounted all the time.
+
+- Owner: `apps/admin/components/dashboard/WorkspaceView.tsx`
+- Mail UI: `apps/admin/modules/workspaces/MailWorkspace.tsx`
+
+Instead of conditionally mounting and unmounting the mail workspace, the dashboard keeps it in the tree and toggles visibility.
+
+That gives us the behavior users expect:
+
+- selected alias stays in memory
+- selected message stays in memory
+- active folder stays in memory
+- fetched mailbox snapshot stays in memory
+
+When the user leaves Mail, the UI is hidden, not destroyed.
+
+## How active vs inactive mail now behaves
+
+The mail workspace receives an `isActive` flag from `WorkspaceView`.
+
+When `isActive === true`:
+
+- the workspace performs its initial load if needed
+- the workspace refreshes its snapshot on entry
+- background polling stays enabled
+
+When `isActive === false`:
+
+- the workspace remains mounted
+- existing mailbox state is preserved
+- background polling is paused
+- transient overlay UI such as the context menu is closed
+
+This is the key balance we want:
+
+- fast return to the inbox
+- no blank state after tab switches
+- no pointless polling while the user is in another workspace
+
+## What is persistent today
+
+### Persistent on the backend
+
+- mailbox messages
+- outbound mail history
+- runtime aliases
+- seen markers
+- team seen markers
+- pinned state
+- snoozed state
+- selected alias fallback behavior from server snapshot
+
+### Persistent in the live admin session
+
+- current mailbox snapshot in React state
+- selected alias
+- selected message id
+- active folder
+
+### Still transient
+
+- search text
+- compose sheet state
+- context menu state
+- preview expansion mode
+
+Those transient items are intentionally UI-local and do not need to survive every navigation event.
+
+## Why this is a better model
+
+This gets us much closer to how serious mail clients behave:
+
+- cache-first feeling
+- stale content shown immediately
+- background revalidation instead of hard resets
+- durable server-side mailbox state
+- responsive tab switching inside the dashboard
+
+It also reduces pressure on the mail host because we no longer force a full empty-state reload every time the user navigates away and back.
+
+## Current limits
+
+This fix solves the most visible persistence problem, but it is not the final mail architecture.
+
+What is still not fully solved:
+
+- browser reload does not preserve every piece of UI state
+- the client does not yet have a dedicated mailbox cache store
+- there is no IndexedDB or sessionStorage mailbox cache
+- multi-tab mailbox cache coordination is still limited
+- true offline mailbox support is not implemented
+
+So the system is now warm across workspace switches and warm from backend persistence, but it is not yet a full offline-first client.
+
+## Recommended next step
+
+If we want to harden this further, the next clean upgrade is:
+
+1. Introduce a dedicated mailbox store in the admin app.
+2. Keep durable mailbox data in that store instead of inside the workspace component.
+3. Persist selected parts of that store to `sessionStorage` first.
+4. Upgrade to IndexedDB if mailbox payload size grows.
+
+That would let us preserve mailbox state not only across tab switches, but also across page reloads in a more explicit and scalable way.
+
+## Code reference
+
+- Client shell mount behavior: `apps/admin/components/dashboard/WorkspaceView.tsx`
+- Client mailbox state and polling behavior: `apps/admin/modules/workspaces/MailWorkspace.tsx`
+- Rust durable state bootstrap: `apps/rust-mail-backend/src/state.rs`
+- Rust SQLite persistence: `apps/rust-mail-backend/src/storage.rs`
+- Rust architecture overview: `docs/Rust-Mail-Engine.md`
+
+## Practical outcome
+
+After this change, the expected user experience is:
+
+1. Open Mail and let it load once.
+2. Switch to Invoice, Tasks, or Dashboard.
+3. Come back to Mail.
+4. The inbox should still be there instantly.
+5. A background refresh can happen without forcing the UI back to zero.
+
+That is the baseline persistence behavior we want from here forward.

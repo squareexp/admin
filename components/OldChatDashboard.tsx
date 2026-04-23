@@ -23,7 +23,7 @@ import {
 import { Global, User, Headphone, Message } from "iconsax-react";
 import { motion, AnimatePresence } from "framer-motion";
 import EmojiPicker, { Theme } from "emoji-picker-react";
-import { cn, getCookie } from "@/libs/utils";
+import { cn, getCookie } from "@/lib/utils";
 
 // TYPE DEFINITIONS
 interface GlobalMessage {
@@ -210,7 +210,7 @@ export default function AdminDashboard() {
   useEffect(() => {
     if (!currentUser) return;
 
-    const newSocket = io("http://localhost:1010", {
+    const newSocket = io("http://localhost:2222", {
       transports: ["websocket", "polling"],
       withCredentials: true,
     });

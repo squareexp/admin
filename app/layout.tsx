@@ -1,27 +1,25 @@
 import type { Metadata } from "next";
-import { Poppins, Bricolage_Grotesque } from "next/font/google";
 import "./globals.css";
-import { cookies } from "next/headers";
-import { redirect } from "next/navigation";
-import AuthFlow from "@/libs/AuthFlow";
+import AuthFlow from "@/lib/AuthFlow";
 import { ToastProvider } from "@/components/Notchjs/ToastProvider";
-
-const poppins = Poppins({
-  variable: "--font-poppins",
-  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
-});
-
-const bricolageGrotesque = Bricolage_Grotesque({
-  variable: "--font-bricolage-grotesque",
-  weight: ["200", "300", "400", "500", "600", "700", "800"],
-});
+import { Geist, Geist_Mono } from "next/font/google";
 
 export const metadata: Metadata = {
   title: "Square Experience | 2026",
   description: "Business in node format",
 };
 
-export default async function RootLayout({
+const geistSans = Geist({
+  variable: "--font-geist-sans",
+  subsets: ["latin"],
+});
+
+const geistMono = Geist_Mono({
+  variable: "--font-geist-mono",
+  subsets: ["latin"],
+});
+
+export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
@@ -29,7 +27,7 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${poppins.variable} ${bricolageGrotesque.className} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased `}
       >
         <ToastProvider>
           <AuthFlow>{children}</AuthFlow>
@@ -38,3 +36,4 @@ export default async function RootLayout({
     </html>
   );
 }
+

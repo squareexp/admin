@@ -1,0 +1,11 @@
+export { DashboardWorkspace } from "./DashboardWorkspace";
+export { MessageInboxWorkspace } from "./MessageInboxWorkspace";
+export { InvoiceWorkspace } from "./InvoiceWorkspace";
+export { MailWorkspace } from "./MailWorkspace";
+export { ReportWorkspace } from "./ReportWorkspace";
+export { TeamWorkspace } from "./TeamWorkspace";
+export { AnalyticsWorkspace } from "./AnalyticsWorkspace";
+export { TasksWorkspace } from "./TasksWorkspace";
+export { BillingsWorkspace } from "./BillingsWorkspace";
+export { SettingsWorkspace } from "./SettingsWorkspace";
+export { DirectWorkspace } from "./DirectWorkspace";
