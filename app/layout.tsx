@@ -3,6 +3,7 @@ import "./globals.css";
 import AuthFlow from "@/lib/AuthFlow";
 import { ToastProvider } from "@/components/Notchjs/ToastProvider";
 import { Geist, Geist_Mono } from "next/font/google";
+import { QueryProvider } from "@/components/providers/query-provider";
 
 export const metadata: Metadata = {
   title: "Square Experience | 2026",
@@ -29,9 +30,11 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased `}
       >
-        <ToastProvider>
-          <AuthFlow>{children}</AuthFlow>
-        </ToastProvider>
+        <QueryProvider>
+          <ToastProvider>
+            <AuthFlow>{children}</AuthFlow>
+          </ToastProvider>
+        </QueryProvider>
       </body>
     </html>
   );
