@@ -1,0 +1,76 @@
+name: Deploy admin panel
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy on VPS
+        uses: appleboy/ssh-action@v1.2.0
+        env:
+          SUDO_PASSWORD: ${{ secrets.VPS_PASSWORD }}
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USER }}
+          password: ${{ secrets.VPS_PASSWORD }}
+          port: ${{ secrets.VPS_PORT }}
+          envs: SUDO_PASSWORD
+          request_pty: true
+          script: |
+            set -euxo pipefail
+
+            run_root() {
+              if [ "$(id -u)" -eq 0 ]; then
+                "$@"
+              else
+                printf '%s\n' "$SUDO_PASSWORD" | sudo -S -p '' "$@"
+              fi
+            }
+
+            export NVM_DIR="$HOME/.nvm"
+            if [ ! -s "$NVM_DIR/nvm.sh" ]; then
+              curl -fsSL https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash
+            fi
+            . "$NVM_DIR/nvm.sh"
+            nvm install --lts
+            nvm use --lts
+
+            if ! command -v pm2 >/dev/null 2>&1; then
+              npm install -g pm2
+            fi
+
+            cd ~/sq/square/apps/admin
+            git fetch --all --prune
+            git reset --hard origin/main
+
+            npm install
+            npm run build
+
+            pm2 delete iam-admin >/dev/null 2>&1 || true
+            pm2 start "npm run start -- -p 2020 -H 127.0.0.1" --name iam-admin
+            pm2 save
+
+            cat >/tmp/iam.squareexp.com.conf <<'EON'
+            server {
+              listen 80;
+              server_name iam.squareexp.com;
+
+              location / {
+                proxy_http_version 1.1;
+                proxy_set_header Host $host;
+                proxy_set_header X-Real-IP $remote_addr;
+                proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+                proxy_set_header X-Forwarded-Proto $scheme;
+                proxy_pass http://127.0.0.1:2020;
+              }
+            }
+            EON
+
+            run_root mv /tmp/iam.squareexp.com.conf /etc/nginx/sites-available/iam.squareexp.com.conf
+            run_root ln -sf /etc/nginx/sites-available/iam.squareexp.com.conf /etc/nginx/sites-enabled/iam.squareexp.com.conf
+            run_root nginx -t
+            run_root systemctl reload nginx

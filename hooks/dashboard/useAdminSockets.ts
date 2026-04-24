@@ -333,7 +333,7 @@ export function useAdminSockets({
             updatedAt: msg.createdAt,
             otherUser:
               msg.senderId === currentUserId
-                ? existingThread?.otherUser
+                ? undefined
                 : {
                     id: msg.sender.id,
                     name: msg.sender.name,
