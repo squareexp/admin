@@ -114,6 +114,24 @@ export function AnalyticsWorkspace({
         />
       </div>
 
+      <SurfaceCard eyebrow="Visitors" title="Recent visitor origins">
+        <div className="space-y-2">
+          {(data.visitors ?? []).slice(0, 10).map((visitor) => (
+            <div key={visitor.id} className="flex items-center justify-between rounded-[10px] border border-white/10 bg-black/20 px-3 py-2">
+              <div className="min-w-0">
+                <p className="truncate text-sm font-medium text-white">{visitor.page}</p>
+                <p className="truncate text-xs text-white/60">
+                  {visitor.origin || "web"} · {[visitor.city, visitor.region, visitor.country].filter(Boolean).join(", ") || "Unknown location"}
+                </p>
+              </div>
+              <p className="shrink-0 text-[11px] text-white/50">
+                {new Date(visitor.createdAt).toLocaleString("en", { month: "short", day: "numeric", hour: "2-digit", minute: "2-digit" })}
+              </p>
+            </div>
+          ))}
+        </div>
+      </SurfaceCard>
+
       {tasks ? (
         <div className="grid gap-3 xl:grid-cols-[1.2fr_0.8fr]">
           <SurfaceCard eyebrow="Execution" title="Task throughput">

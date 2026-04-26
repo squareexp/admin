@@ -68,6 +68,19 @@ export interface AdminWorkspaceSnapshot {
       count: number;
     }>;
   };
+  visitors: Array<{
+    id: string;
+    sessionId?: string | null;
+    name?: string | null;
+    email?: string | null;
+    page: string;
+    origin?: string | null;
+    country?: string | null;
+    region?: string | null;
+    city?: string | null;
+    referrer?: string | null;
+    createdAt: string;
+  }>;
   team: Array<{
     id: string;
     name: string;
