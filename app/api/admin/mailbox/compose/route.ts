@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://127.0.0.1:2222';
+const API_URL = process.env.NEXT_PUBLIC_MAIL_API_URL || "https://rms.srv.squareexp.com";
 
 async function getAdminToken() {
   const cookieStore = await cookies();

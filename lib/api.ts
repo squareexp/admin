@@ -1,7 +1,4 @@
-export const baseURL =
-  process.env.NODE_ENV === "development"
-    ? "http://localhost:2222/api"
-    : "https://api.squareexp.com/api";
+export const baseURL = process.env.NEXT_PUBLIC_API_URL || "https://api.squareexp.com";
 
 type FetchOptions = RequestInit & {
   params?: Record<string, string>;

@@ -14,7 +14,7 @@ export function isBackendDown(error: unknown): boolean {
 }
 
 export function backendDownResponse() {
-  return NextResponse.json(
+  return NextResponse.json( 
     { error: 'Backend server is not running', code: 'BACKEND_DOWN' },
     { status: 503 },
   );
