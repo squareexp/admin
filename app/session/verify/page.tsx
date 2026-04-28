@@ -90,12 +90,6 @@ function VerifyForm() {
           className="border-white/12 bg-black/25 text-center text-xl tracking-[0.4em] text-white placeholder:text-white/35"
         />
 
-        {state?.error ? (
-          <div className="rounded-xl border border-red-400/25 bg-red-400/10 px-3 py-2 text-sm text-red-200">
-            {state.error}
-          </div>
-        ) : null}
-
         <AnimatedButton
           type="submit"
           className="w-full gap-2 font-semibold disabled:cursor-not-allowed disabled:opacity-60"

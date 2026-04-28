@@ -101,11 +101,6 @@ function ResetPasswordForm() {
             minLength={8}
             className="border-white/12 bg-black/25 text-white placeholder:text-white/35"
           />
-          {confirmState?.error ? (
-            <div className="rounded-xl border border-red-400/25 bg-red-400/10 px-3 py-2 text-sm text-red-200">
-              {confirmState.error}
-            </div>
-          ) : null}
           {confirmState?.success ? (
             <div className="rounded-xl border border-emerald-400/20 bg-emerald-400/10 px-3 py-2 text-sm text-emerald-200">
               {confirmState.message}
@@ -130,11 +125,6 @@ function ResetPasswordForm() {
             required
             className="border-white/12 bg-black/25 text-white placeholder:text-white/35"
           />
-          {requestState?.error ? (
-            <div className="rounded-xl border border-red-400/25 bg-red-400/10 px-3 py-2 text-sm text-red-200">
-              {requestState.error}
-            </div>
-          ) : null}
           {requestState?.success ? (
             <div className="rounded-xl border border-emerald-400/20 bg-emerald-400/10 px-3 py-2 text-sm text-emerald-200">
               {requestState.message}

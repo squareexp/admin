@@ -126,12 +126,6 @@ export default function LoginPage() {
             <span className="text-white/35">Min 8 chars + mixed case</span>
           </div>
 
-          {state?.error ? (
-            <div className="rounded-xl border border-red-400/25 bg-red-400/10 px-3 py-2 text-sm text-red-200">
-              {state.error}
-            </div>
-          ) : null}
-
           <AnimatedButton
             type="submit"
             className="w-full gap-2 font-semibold disabled:cursor-not-allowed disabled:opacity-60"
@@ -157,12 +151,6 @@ export default function LoginPage() {
               className="mt-4 border-white/15 bg-black/25 text-center text-2xl tracking-[0.48em] text-white"
             />
           </div>
-
-          {verifyState?.error ? (
-            <div className="rounded-xl border border-red-400/25 bg-red-400/10 px-3 py-2 text-sm text-red-200">
-              {verifyState.error}
-            </div>
-          ) : null}
 
           <div className="grid grid-cols-2 gap-3">
             <Button type="button" variant="secondary" onClick={() => window.location.reload()}>

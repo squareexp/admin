@@ -130,21 +130,21 @@ export function DefaultAuthAside({
   return (
     <>
       <div>
-        <p className="text-[10px] uppercase tracking-[0.24em] text-sq-brand-action/70">{eyebrow}</p>
-        <h1 className="mb-4 mt-3 text-xl font-semibold tracking-[-0.04em] text-white">{title}</h1>
+        <p className="text-[10px] uppercase font-brachial tracking-[0.24em] text-sq-brand-action/70">{eyebrow}</p>
+        <h1 className="mb-4 mt-3 uppercase text-[18px] font-brachial text-white/50 tracking-tight">{title}</h1>
         <hr className="divider-dashed" />
       </div>
       <div className="flex gap-8 items-baseline justify-start"> <Image src="/nodes.png" alt="Square Experience" width={400} height={400} priority className="  select-none selection:bg-transparent h-[40px] w-auto opacity-60  " />
         <Image src="/flaredcloud.png" alt="Square Experience" width={400} height={400} priority className=" h-[30px] w-auto select-none selection:bg-transparent  opacity-60  " /> </div>
-
-      <div className="mt-6 max-w-md space-y-6">
-        {paragraphs.map((paragraph, index) => (
-          <div key={`${paragraph}-${index}`}>
-            <p className="text-[13px] leading-relaxed text-white/60">{paragraph}</p>
-            {index < paragraphs.length - 1 ? <hr className="divider-dashed mt-6" /> : null}
-          </div>
-        ))}
-      </div>
+      <div className="flex flex-col gap-1"><hr className="divider-dashed w-full" />
+        <div className="mt-2 max-w-md space-y-6">
+          {paragraphs.map((paragraph, index) => (
+            <div key={`${paragraph}-${index}`}>
+              <p className="text-[11px] leading-relaxed text-white/60">{paragraph}</p>
+              {index < paragraphs.length - 1 ? <hr className="divider-dashed mt-6" /> : null}
+            </div>
+          ))}
+        </div></div>
     </>
   );
 }

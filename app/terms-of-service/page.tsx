@@ -1,14 +1,21 @@
-import { LegalDocumentPage } from "@/components/auth/PublicDocumentPage";
+import { terms } from "@/.redstraw";
+import { MDXComponent } from "@/components/mdx/mdx-components";
 
 export const dynamic = "force-dynamic";
 
 export default async function TermsOfServicePage() {
+  const doc = terms[0];
+
   return (
-    <LegalDocumentPage
-      type="terms"
-      eyebrow="Public Terms"
-      title="Terms of Service"
-      description="Read the governing service terms for Square Experience platforms, commercial engagements, usage boundaries, liability allocation, billing expectations, and support obligations."
-    />
+    <article className="container py-10 max-w-4xl mx-auto">
+      <h1 className="mb-3 text-4xl font-extrabold tracking-tight text-white">{doc.title}</h1>
+      {doc.description ? (
+        <p className="text-lg mt-0 mb-8 text-slate-300 bg-white/5 p-4 border border-white/10 rounded-md">
+          {doc.description}
+        </p>
+      ) : null}
+      <MDXComponent code={doc.content} />
+    </article>
   );
 }
+

@@ -2,7 +2,7 @@
 
 import { useActionState, useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
-import { ShieldCheck, QrCode, Smartphone, Loader2, LockKeyhole } from "lucide-react";
+import { ShieldCheck, Loader2, LockKeyhole } from "lucide-react";
 import AnimatedButton from "@/components/ui/ButtonX";
 import { Input } from "@/components/ui/core";
 import { useNotchToast } from "@/components/Notchjs";
@@ -68,7 +68,6 @@ export default function TwoFactorSetupPage() {
       : confirmState.error || confirmState.message
         ? confirmState
         : setupState;
-
     if (isPending) {
       toastId.current = toast({
         type: "loading",
@@ -82,38 +81,31 @@ export default function TwoFactorSetupPage() {
       return;
     }
 
-    if (!toastId.current) return;
+    if (toastId.current) {
+      dismiss(toastId.current);
+      toastId.current = null;
+    }
 
     if (activeState?.error) {
-      update(toastId.current, {
+      toast({
         type: "error",
         message: activeState.error,
         duration: 4000,
       });
     } else if (activeState?.message) {
-      update(toastId.current, {
+      toast({
         type: "success",
         message: activeState.message,
         duration: 3500,
       });
-    } else {
-      dismiss(toastId.current);
     }
-
-    toastId.current = null;
   }, [confirmState, disableState, dismiss, isConfirming, isDisabling, isSettingUp, setupState, toast, update]);
 
-  useEffect(() => {
-    if (confirmState.success) {
-      setProfile((current) => (current ? { ...current, twoFactorEnabled: true } : current));
-    }
-  }, [confirmState.success]);
-
-  useEffect(() => {
-    if (disableState.success) {
-      setProfile((current) => (current ? { ...current, twoFactorEnabled: false } : current));
-    }
-  }, [disableState.success]);
+  const isTwoFactorActive = useMemo(() => {
+    if (confirmState.success) return true;
+    if (disableState.success) return false;
+    return profile?.twoFactorEnabled ?? false;
+  }, [confirmState.success, disableState.success, profile?.twoFactorEnabled]);
 
   const activeSetup = useMemo(() => {
     if (confirmState.success) {
@@ -157,7 +149,7 @@ export default function TwoFactorSetupPage() {
         <div className="rounded-2xl border border-white/10 bg-black/20 p-5 text-sm text-white/60">
           Loading account security state...
         </div>
-      ) : profile?.twoFactorEnabled ? (
+      ) : isTwoFactorActive ? (
         <div className="space-y-5">
           <div className="rounded-2xl border border-emerald-400/20 bg-emerald-400/8 p-5">
             <div className="flex items-center gap-3 text-emerald-200">
@@ -185,11 +177,6 @@ export default function TwoFactorSetupPage() {
               maxLength={6}
               className="border-white/12 bg-black/25 text-center text-xl tracking-[0.4em] text-white"
             />
-            {disableState?.error ? (
-              <div className="rounded-xl border border-red-400/25 bg-red-400/10 px-3 py-2 text-sm text-red-200">
-                {disableState.error}
-              </div>
-            ) : null}
             <AnimatedButton
               type="submit"
               className="w-full gap-2 font-semibold disabled:cursor-not-allowed disabled:opacity-60"
@@ -215,7 +202,7 @@ export default function TwoFactorSetupPage() {
           ) : (
             <div className="grid gap-5 rounded-2xl border border-white/10 bg-black/20 p-5 lg:grid-cols-[160px_1fr] items-center">
               <div className="rounded-[16px] border border-white/10 bg-white p-2">
-                <img src={activeSetup.qrCode} alt="2FA QR code" className="h-auto w-full rounded-[10px]" />
+                <Image width={150} height={150}  src={activeSetup.qrCode} alt="2FA QR code" className="h-auto w-full rounded-[10px]" />
               </div>
               <div className="space-y-4">
                 {activeSetup.secret ? (
@@ -232,11 +219,6 @@ export default function TwoFactorSetupPage() {
                     maxLength={6}
                     className="border-white/12 bg-black/25 text-center text-xl tracking-[0.4em] text-white"
                   />
-                  {confirmState?.error ? (
-                    <div className="rounded-xl border border-red-400/25 bg-red-400/10 px-3 py-2 text-sm text-red-200">
-                      {confirmState.error}
-                    </div>
-                  ) : null}
                   <AnimatedButton
                     type="submit"
                     className="w-full gap-2 font-semibold disabled:cursor-not-allowed disabled:opacity-60"

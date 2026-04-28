@@ -1,3 +1,299 @@
+/* ─── Brachial Font ─────────────────────────────────────────────────────────
+   Source: /public/special_font/WOFF2/
+   Weights mapped: 100 (Thin) · 200 (UltraLight) · 300 (Light) · 400 (Normal)
+                   500 (Medium) · 600 (SemiBold) · 700 (Bold) · 800 (UltraBold)
+   Width variants available: default · SemiWide · Wide · ExtraWide · UltraWide
+   Usage: class="font-brachial" or style={{ fontFamily: 'var(--font-brachial)' }}
+──────────────────────────────────────────────────────────────────────────── */
+
+@font-face {
+  font-family: "Brachial";
+  src: url("/special_font/WOFF2/Brachial-Thin.woff2") format("woff2");
+  font-weight: 100;
+  font-stretch: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Brachial";
+  src: url("/special_font/WOFF2/Brachial-Thin-SemiWide.woff2") format("woff2");
+  font-weight: 100;
+  font-stretch: semi-expanded;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Brachial";
+  src: url("/special_font/WOFF2/Brachial-Thin-Wide.woff2") format("woff2");
+  font-weight: 100;
+  font-stretch: expanded;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Brachial";
+  src: url("/special_font/WOFF2/Brachial-Thin-ExtraWide.woff2") format("woff2");
+  font-weight: 100;
+  font-stretch: extra-expanded;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Brachial";
+  src: url("/special_font/WOFF2/Brachial-Thin-UltraWide.woff2") format("woff2");
+  font-weight: 100;
+  font-stretch: ultra-expanded;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Brachial";
+  src: url("/special_font/WOFF2/Brachial-UltraLight.woff2") format("woff2");
+  font-weight: 200;
+  font-stretch: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Brachial";
+  src: url("/special_font/WOFF2/Brachial-UltraLight-SemiWide.woff2") format("woff2");
+  font-weight: 200;
+  font-stretch: semi-expanded;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Brachial";
+  src: url("/special_font/WOFF2/Brachial-UltraLight-Wide.woff2") format("woff2");
+  font-weight: 200;
+  font-stretch: expanded;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Brachial";
+  src: url("/special_font/WOFF2/Brachial-UltraLight-ExtraWide.woff2") format("woff2");
+  font-weight: 200;
+  font-stretch: extra-expanded;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Brachial";
+  src: url("/special_font/WOFF2/Brachial-UltraLight-UltraWide.woff2") format("woff2");
+  font-weight: 200;
+  font-stretch: ultra-expanded;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Brachial";
+  src: url("/special_font/WOFF2/Brachial-Light.woff2") format("woff2");
+  font-weight: 300;
+  font-stretch: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Brachial";
+  src: url("/special_font/WOFF2/Brachial-Light-SemiWide.woff2") format("woff2");
+  font-weight: 300;
+  font-stretch: semi-expanded;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Brachial";
+  src: url("/special_font/WOFF2/Brachial-Light-Wide.woff2") format("woff2");
+  font-weight: 300;
+  font-stretch: expanded;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Brachial";
+  src: url("/special_font/WOFF2/Brachial-Light-ExtraWide.woff2") format("woff2");
+  font-weight: 300;
+  font-stretch: extra-expanded;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Brachial";
+  src: url("/special_font/WOFF2/Brachial-Light-UltraWide.woff2") format("woff2");
+  font-weight: 300;
+  font-stretch: ultra-expanded;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Brachial";
+  src: url("/special_font/WOFF2/Brachial-Normal.woff2") format("woff2");
+  font-weight: 400;
+  font-stretch: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Brachial";
+  src: url("/special_font/WOFF2/Brachial-Normal-SemiWide.woff2") format("woff2");
+  font-weight: 400;
+  font-stretch: semi-expanded;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Brachial";
+  src: url("/special_font/WOFF2/Brachial-Normal-Wide.woff2") format("woff2");
+  font-weight: 400;
+  font-stretch: expanded;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Brachial";
+  src: url("/special_font/WOFF2/Brachial-Normal-ExtraWide.woff2") format("woff2");
+  font-weight: 400;
+  font-stretch: extra-expanded;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Brachial";
+  src: url("/special_font/WOFF2/Brachial-Normal-UltraWide.woff2") format("woff2");
+  font-weight: 400;
+  font-stretch: ultra-expanded;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Brachial";
+  src: url("/special_font/WOFF2/Brachial-Medium.woff2") format("woff2");
+  font-weight: 500;
+  font-stretch: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Brachial";
+  src: url("/special_font/WOFF2/Brachial-Medium-SemiWide.woff2") format("woff2");
+  font-weight: 500;
+  font-stretch: semi-expanded;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Brachial";
+  src: url("/special_font/WOFF2/Brachial-Medium-Wide.woff2") format("woff2");
+  font-weight: 500;
+  font-stretch: expanded;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Brachial";
+  src: url("/special_font/WOFF2/Brachial-Medium-ExtraWide.woff2") format("woff2");
+  font-weight: 500;
+  font-stretch: extra-expanded;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Brachial";
+  src: url("/special_font/WOFF2/Brachial-Medium-UltraWide.woff2") format("woff2");
+  font-weight: 500;
+  font-stretch: ultra-expanded;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Brachial";
+  src: url("/special_font/WOFF2/Brachial-SemiBold.woff2") format("woff2");
+  font-weight: 600;
+  font-stretch: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Brachial";
+  src: url("/special_font/WOFF2/Brachial-SemiBold-SemiWide.woff2") format("woff2");
+  font-weight: 600;
+  font-stretch: semi-expanded;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Brachial";
+  src: url("/special_font/WOFF2/Brachial-SemiBold-Wide.woff2") format("woff2");
+  font-weight: 600;
+  font-stretch: expanded;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Brachial";
+  src: url("/special_font/WOFF2/Brachial-SemiBold-ExtraWide.woff2") format("woff2");
+  font-weight: 600;
+  font-stretch: extra-expanded;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Brachial";
+  src: url("/special_font/WOFF2/Brachial-SemiBold-UltraWide.woff2") format("woff2");
+  font-weight: 600;
+  font-stretch: ultra-expanded;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Brachial";
+  src: url("/special_font/WOFF2/Brachial-Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-stretch: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Brachial";
+  src: url("/special_font/WOFF2/Brachial-Bold-SemiWide.woff2") format("woff2");
+  font-weight: 700;
+  font-stretch: semi-expanded;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Brachial";
+  src: url("/special_font/WOFF2/Brachial-Bold-Wide.woff2") format("woff2");
+  font-weight: 700;
+  font-stretch: expanded;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Brachial";
+  src: url("/special_font/WOFF2/Brachial-Bold-ExtraWide.woff2") format("woff2");
+  font-weight: 700;
+  font-stretch: extra-expanded;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Brachial";
+  src: url("/special_font/WOFF2/Brachial-Bold-UltraWide.woff2") format("woff2");
+  font-weight: 700;
+  font-stretch: ultra-expanded;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Brachial";
+  src: url("/special_font/WOFF2/Brachial-UltraBold.woff2") format("woff2");
+  font-weight: 800;
+  font-stretch: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Brachial";
+  src: url("/special_font/WOFF2/Brachial-UltraBold-SemiWide.woff2") format("woff2");
+  font-weight: 800;
+  font-stretch: semi-expanded;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Brachial";
+  src: url("/special_font/WOFF2/Brachial-UltraBold-Wide.woff2") format("woff2");
+  font-weight: 800;
+  font-stretch: expanded;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Brachial";
+  src: url("/special_font/WOFF2/Brachial-UltraBold-ExtraWide.woff2") format("woff2");
+  font-weight: 800;
+  font-stretch: extra-expanded;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Brachial";
+  src: url("/special_font/WOFF2/Brachial-UltraBold-UltraWide.woff2") format("woff2");
+  font-weight: 800;
+  font-stretch: ultra-expanded;
+  font-display: swap;
+}
+
 @import "tailwindcss";
 
 @plugin "tailwindcss-animate";
@@ -12,6 +308,7 @@
   --font-mono: var(--font-stinger-body);
   --font-serif: var(--font-serif);
   --font-heading: var(--font-stinger-heading);
+  --font-brachial: "Brachial", sans-serif;
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -359,6 +656,11 @@
   }
   .flex-end{
     @apply flex items-center justify-end;
+  }
+
+  /* Brachial utility — apply directly to any element */
+  .font-brachial {
+    font-family: var(--font-brachial);
   }
 }
 
@@ -1077,4 +1379,79 @@
     -ms-overflow-style: none;  /* IE and Edge */
     scrollbar-width: none;  /* Firefox */
   }
+  .input-clear{
+    @apply border-white/12 bg-black/25 text-white placeholder:text-white/35;
+  }
 }
+
+/* ─── Instruction Content (MDX) ─────────────────────────────────────────── */
+.instruction-content {
+  @apply text-white/70 space-y-8;
+}
+
+.instruction-content h1 {
+  @apply font-brachial text-3xl font-bold uppercase tracking-tight text-white mt-16 mb-8;
+}
+
+.instruction-content h2 {
+  @apply font-brachial text-xl font-semibold uppercase tracking-wide text-white/90 mt-12 mb-6 border-b border-white/5 pb-2;
+}
+
+.instruction-content h3 {
+  @apply font-brachial text-sm font-bold uppercase tracking-[0.2em] text-sq-brand-action/80 mt-8 mb-4;
+}
+
+.instruction-content p {
+  @apply text-[14px] leading-relaxed text-white/60 mb-6;
+}
+
+.instruction-content strong {
+  @apply font-semibold text-sq-brand-action/90;
+}
+
+.instruction-content ul {
+  @apply space-y-4 my-8 list-none;
+}
+
+.instruction-content ul li {
+  @apply relative pl-8 text-[13px] leading-relaxed text-white/50 transition-colors hover:text-white/80;
+}
+
+.instruction-content ul li::before {
+  content: "";
+  @apply absolute left-0 top-[0.6em] h-px w-4 bg-white/20 transition-all;
+}
+
+.instruction-content ul li:hover::before {
+  @apply w-6 bg-sq-brand-action/60;
+}
+
+.instruction-content ol {
+  @apply space-y-6 my-10 list-none;
+  counter-reset: section;
+}
+
+.instruction-content ol li {
+  @apply relative pl-12 text-[14px] leading-relaxed text-white/60;
+  counter-increment: section;
+}
+
+.instruction-content ol li::before {
+  content: counter(section, decimal-leading-zero);
+  @apply absolute left-0 top-0 font-brachial text-[10px] font-bold text-sq-brand-action/40 tracking-widest;
+}
+
+.instruction-content blockquote {
+  @apply border-l-2 border-sq-brand-action/30 bg-sq-brand-action/5 px-6 py-4 my-8 rounded-r-lg italic text-white/80;
+}
+
+.instruction-content hr {
+  @apply border-0 h-px bg-linear-to-r from-transparent via-white/10 to-transparent my-16;
+}
+
+.instruction-content code {
+  @apply bg-white/5 px-1.5 py-0.5 rounded text-sq-brand-action text-[13px] font-mono;
+}
+
+
+
