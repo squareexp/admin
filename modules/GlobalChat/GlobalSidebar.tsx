@@ -20,7 +20,7 @@ export const GlobalSidebar: React.FC<GlobalSidebarProps> = ({
     <div className="flex w-[280px] min-h-0 shrink-0 flex-col border-r border-white/10 bg-black/25">
       <div className="border-b border-dashed border-white/10 p-3">
         <h1 className="flex items-center gap-2 text-sm font-semibold text-white">
-          <Global variant="Bulk" className="text-[var(--sq-brand-action)]" size={18} />
+          <Global variant="Bulk" className="text-sq-brand-action" size={18} />
           Global Chat
         </h1>
         <div className="relative mt-3">
@@ -38,7 +38,7 @@ export const GlobalSidebar: React.FC<GlobalSidebarProps> = ({
           <button className="group relative flex w-full items-start gap-3 rounded-[22px] border border-[rgba(205,255,4,0.18)] bg-[rgba(205,255,4,0.08)] px-3 py-3 text-left shadow-[0_18px_40px_rgba(0,0,0,0.18)] transition-all">
             <div className="relative mt-0.5 shrink-0">
               <div className="flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/5 text-[11px] font-semibold text-white/80 shadow-[inset_0_1px_0_rgba(255,255,255,0.03)] backdrop-blur-xl">
-                <Global variant="Bulk" size={20} className="text-[var(--sq-brand-action)]" />
+                <Global variant="Bulk" size={20} className="text-sq-brand-action" />
               </div>
             </div>
             <div className="min-w-0 flex-1">

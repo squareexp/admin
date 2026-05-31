@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 "use client"
 
 import React, { useEffect, useRef, useState } from "react"
@@ -155,7 +156,7 @@ const statusMeta: Record<
   },
   paid: {
     label: "Paid",
-    tone: "text-[var(--sq-brand-action)]",
+    tone: "text-sq-brand-action",
     border: "border-[rgba(205,255,4,0.22)]",
     bg: "bg-[rgba(205,255,4,0.1)]",
   },
@@ -740,7 +741,7 @@ function InvoicePreviewPaper({
                     alt={draft.issuerName}
                     crossOrigin="anonymous"
                     style={{ height: `${logoHeight}px` }}
-                    className={cn("w-auto max-w-[220px] object-contain", previewIsDark ? "brightness-0 invert" : "brightness-0")}
+                    className={cn("w-auto max-w-55 object-contain", previewIsDark ? "brightness-0 invert" : "brightness-0")}
                   />
                   {draft.partnerEnabled && draft.partnerLogoUrl ? (
                     <img
@@ -2063,7 +2064,7 @@ export function InvoiceWorkspace({
                 <div className="grid gap-2 rounded-[20px] border border-[rgba(205,255,4,0.22)] bg-[rgba(205,255,4,0.07)] p-2.5">
                   <div className="flex items-center gap-2 text-white/80">
                     <Profile2User variant="Bulk" size={16} color="currentColor" />
-                    <p className="text-[10px] uppercase tracking-[0.22em] text-[var(--sq-brand-action)]">AI review</p>
+                    <p className="text-[10px] uppercase tracking-[0.22em] text-sq-brand-action">AI review</p>
                   </div>
                   <hr className="divider-dashed" />
                   <p className="text-[11px] font-medium text-white">{reviewResult.summary}</p>

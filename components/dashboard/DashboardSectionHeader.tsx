@@ -18,7 +18,7 @@ export function DashboardSectionHeader({
   return (
     <div className="flex flex-wrap items-center justify-between gap-3 border-b border-white/10 px-4 py-3">
       <div>
-        <p className="text-[10px] uppercase tracking-[0.28em] text-[var(--sq-brand-action)]/72">
+        <p className="text-[10px] uppercase tracking-[0.28em] text-sq-brand-action/72">
           {eyebrow}
         </p>
         <h2 className="mt-1.5 text-[1.55rem] font-semibold tracking-[-0.04em] text-white">

@@ -18,8 +18,12 @@ function VerifyForm() {
   const [state, action, isPending] = useActionState(verifyAction, initialState);
   const searchParams = useSearchParams();
   const email = searchParams.get("email") || "";
+  const code = searchParams.get("code") || "";
+  const provider = searchParams.get("provider") || "";
   const { toast, update, dismiss } = useNotchToast();
   const toastId = useRef<string | null>(null);
+  const formRef = useRef<HTMLFormElement | null>(null);
+  const submittedFromLink = useRef(false);
 
   useEffect(() => {
     if (isPending) {
@@ -49,6 +53,15 @@ function VerifyForm() {
     };
   }, [dismiss, isPending, state, toast, update]);
 
+  useEffect(() => {
+    if (!email || !code || submittedFromLink.current || isPending) {
+      return;
+    }
+
+    submittedFromLink.current = true;
+    formRef.current?.requestSubmit();
+  }, [code, email, isPending]);
+
   return (
     <AuthShell
       aside={
@@ -56,7 +69,7 @@ function VerifyForm() {
           eyebrow="Account Verification"
           title="Confirm your inbox before first access"
           paragraphs={[
-            "A short-lived verification code is sent to your work email when registration is created.",
+            "A short-lived verification link is sent to your work email when registration is created.",
             "Once your inbox is confirmed, sign-in opens and you can continue to optional 2FA setup for stronger protection.",
           ]}
         />
@@ -64,13 +77,13 @@ function VerifyForm() {
     >
       <div className="mb-8">
         <p className="text-[10px] uppercase tracking-[0.24em] text-sq-brand-action/75">Account Verification</p>
-        <h1 className="mt-3 text-3xl font-semibold tracking-[-0.03em] text-white">Confirm your code</h1>
+        <h1 className="mt-3 text-3xl font-semibold tracking-[-0.03em] text-white">Confirm your account</h1>
         <p className="mt-3 max-w-md text-sm text-white/55">
-          Enter the 6-digit verification code sent to your inbox to activate your admin account.
+          Open the secure email link or enter the verification code to activate your admin account.
         </p>
       </div>
 
-      <form action={action} className="space-y-5">
+      <form ref={formRef} action={action} className="space-y-5">
         <Input
           name="email"
           type="email"
@@ -80,15 +93,25 @@ function VerifyForm() {
           required
           className="border-white/12 bg-black/25 text-white placeholder:text-white/35"
         />
-        <Input
-          name="code"
-          label="Verification code"
-          placeholder="123456"
-          required
-          minLength={6}
-          maxLength={6}
-          className="border-white/12 bg-black/25 text-center text-xl tracking-[0.4em] text-white placeholder:text-white/35"
-        />
+        {code ? (
+          <>
+            <input type="hidden" name="code" value={code} />
+            <input type="hidden" name="provider" value={provider} />
+            <div className="rounded-[16px] border border-[rgba(205,255,4,0.22)] bg-[rgba(205,255,4,0.1)] px-4 py-3 text-sm text-sq-brand-action">
+              Secure verification link detected. Finishing account confirmation...
+            </div>
+          </>
+        ) : (
+          <Input
+            name="code"
+            label="Verification code"
+            placeholder="123456"
+            required
+            minLength={6}
+            maxLength={128}
+            className="border-white/12 bg-black/25 text-center text-xl tracking-[0.4em] text-white placeholder:text-white/35"
+          />
+        )}
 
         <AnimatedButton
           type="submit"

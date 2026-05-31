@@ -7,7 +7,7 @@ import { Component, Layout, Wallet } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
-import { Drawer } from "vaul";
+import { Drawer } from "@/components/ui/drawer";
 import { useMediaQuery } from "./use-media-query";
 
 export function XIcon(props: React.SVGProps<SVGSVGElement>) {

@@ -1,3 +1,8 @@
+@import "tailwindcss";
+@import "@heroui/styles";
+@plugin "tailwindcss-animate";
+@import "tw-animate-css";
+
 /* ─── Brachial Font ─────────────────────────────────────────────────────────
    Source: /public/special_font/WOFF2/
    Weights mapped: 100 (Thin) · 200 (UltraLight) · 300 (Light) · 400 (Normal)
@@ -294,11 +299,6 @@
   font-display: swap;
 }
 
-@import "tailwindcss";
-
-@plugin "tailwindcss-animate";
-@import "tw-animate-css";
-
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
@@ -567,6 +567,24 @@
   --sq-brand-accent: #A5E366;
   --sq-brand: hsl(27 96% 61%);
   --sq-brand-foreground: hsl(31 97% 72%);
+  --surface: oklch(1 0 0);
+  --surface-foreground: var(--foreground);
+  --surface-secondary: oklch(0.967 0.001 286.375);
+  --surface-secondary-foreground: var(--foreground);
+  --surface-tertiary: oklch(0.94 0.002 286.375);
+  --surface-tertiary-foreground: var(--foreground);
+  --overlay: oklch(1 0 0);
+  --overlay-foreground: var(--foreground);
+  --default: oklch(0.967 0.001 286.375);
+  --default-foreground: var(--foreground);
+  --accent: var(--sq-brand-action);
+  --accent-foreground: var(--sq-brand-black);
+  --separator: oklch(0.922 0 0);
+  --focus: var(--sq-brand-action);
+  --field-background: oklch(1 0 0);
+  --field-foreground: var(--foreground);
+  --field-placeholder: oklch(0.556 0 0);
+  --field-border: oklch(0.922 0 0);
 }
 
 .dark {
@@ -608,6 +626,24 @@
   --sq-brand-black: #05070D;
   --sq-brand-white: #FFFFFF;
   --sq-brand-off-white: #FAFAFA;
+  --surface: #0c0f18;
+  --surface-foreground: var(--foreground);
+  --surface-secondary: #10141f;
+  --surface-secondary-foreground: var(--foreground);
+  --surface-tertiary: #151b29;
+  --surface-tertiary-foreground: var(--foreground);
+  --overlay: #090d14;
+  --overlay-foreground: var(--foreground);
+  --default: rgba(255, 255, 255, 0.06);
+  --default-foreground: rgba(255, 255, 255, 0.82);
+  --accent: var(--sq-brand-action);
+  --accent-foreground: var(--sq-brand-black);
+  --separator: rgba(255, 255, 255, 0.1);
+  --focus: var(--sq-brand-action);
+  --field-background: rgba(255, 255, 255, 0.05);
+  --field-foreground: rgba(255, 255, 255, 0.78);
+  --field-placeholder: rgba(255, 255, 255, 0.35);
+  --field-border: rgba(255, 255, 255, 0.1);
 }
 
 @layer base {
@@ -617,6 +653,121 @@
   body {
     @apply bg-background text-foreground;
     font-family: var(--font-stinger-body), sans-serif;
+  }
+}
+
+@layer components {
+  .button {
+    border-radius: 14px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.05);
+    color: rgba(255, 255, 255, 0.72);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(16px);
+  }
+
+  .button:hover,
+  .button[data-hovered="true"] {
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    border-color: rgba(255, 255, 255, 0.16);
+  }
+
+  .button--primary {
+    border-color: rgba(205, 255, 4, 0.22);
+    background: rgba(205, 255, 4, 0.1);
+    color: var(--sq-brand-action);
+  }
+
+  .button--primary:hover,
+  .button--primary[data-hovered="true"] {
+    border-color: rgba(205, 255, 4, 0.32);
+    background: rgba(205, 255, 4, 0.16);
+    color: var(--sq-brand-action);
+  }
+
+  .button--danger,
+  .button--danger-soft {
+    border-color: rgba(251, 113, 133, 0.24);
+    background: rgba(251, 113, 133, 0.1);
+    color: rgb(255, 205, 213);
+  }
+
+  .button--ghost {
+    border-color: transparent;
+    background: transparent;
+    color: rgba(255, 255, 255, 0.58);
+    box-shadow: none;
+  }
+
+  .button--outline,
+  .button--secondary,
+  .button--tertiary {
+    border-color: rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.05);
+    color: rgba(255, 255, 255, 0.72);
+  }
+
+  .input,
+  .textarea,
+  .select__trigger {
+    width: 100%;
+    border-radius: 14px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.05);
+    color: rgba(255, 255, 255, 0.78);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(16px);
+  }
+
+  .input:hover,
+  .textarea:hover,
+  .select__trigger:hover,
+  .input[data-hovered="true"],
+  .textarea[data-hovered="true"],
+  .select__trigger[data-hovered="true"] {
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    border-color: rgba(255, 255, 255, 0.18);
+  }
+
+  .input:focus-visible,
+  .textarea:focus-visible,
+  .select__trigger:focus-visible,
+  .input[data-focus-visible="true"],
+  .textarea[data-focus-visible="true"],
+  .select__trigger[data-focus-visible="true"] {
+    border-color: rgba(205, 255, 4, 0.35);
+    outline: none;
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.03),
+      0 0 0 3px rgba(205, 255, 4, 0.08);
+  }
+
+  .card,
+  .modal__dialog,
+  .drawer__dialog,
+  .dropdown__popover,
+  .select__popover {
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: linear-gradient(180deg, rgba(12, 16, 24, 0.98), rgba(8, 12, 18, 0.98));
+    color: white;
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(18px);
+  }
+
+  .separator,
+  .separator--horizontal {
+    height: 1px;
+    border-top: 1px dashed rgba(255, 255, 255, 0.1);
+    background: transparent;
+  }
+
+  .separator--vertical {
+    width: 1px;
+    border-top: 0;
+    border-left: 1px dashed rgba(255, 255, 255, 0.1);
+    background: transparent;
   }
 }
 
@@ -1452,6 +1603,5 @@
 .instruction-content code {
   @apply bg-white/5 px-1.5 py-0.5 rounded text-sq-brand-action text-[13px] font-mono;
 }
-
 
 

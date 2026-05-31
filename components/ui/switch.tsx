@@ -1,41 +1,55 @@
-"use client"
+"use client";
 
-import * as React from "react"
-import * as SwitchPrimitives from "@radix-ui/react-switch"
-import { cn } from "@/lib/utils"
+import * as React from "react";
+import { Switch as HeroSwitch } from "@heroui/react";
+import { cn } from "@/lib/utils";
 
-const Switch = React.forwardRef<
-  React.ElementRef<typeof SwitchPrimitives.Root>,
-  React.ComponentPropsWithoutRef<typeof SwitchPrimitives.Root>
->(({ className, ...props }, ref) => (
-  <SwitchPrimitives.Root
-    className={cn(
-      // layout
-      "peer inline-flex h-5 w-9 shrink-0 cursor-pointer items-center rounded-full border border-transparent transition-all duration-200 outline-none",
-      // unchecked: dark translucent track
-      "data-[state=unchecked]:border-white/15 data-[state=unchecked]:bg-white/10",
-      // checked: brand lime track
-      "data-[state=checked]:border-[#CDFF04]/30 data-[state=checked]:bg-[#CDFF04]",
-      // focus ring
-      "focus-visible:ring-2 focus-visible:ring-[#CDFF04]/40 focus-visible:ring-offset-0",
-      // disabled
-      "disabled:cursor-not-allowed disabled:opacity-40",
-      className
-    )}
-    {...props}
-    ref={ref}
-  >
-    <SwitchPrimitives.Thumb
-      className={cn(
-        "pointer-events-none block h-3.5 w-3.5 rounded-full shadow-md ring-0 transition-all duration-200",
-        // unchecked thumb: white/50
-        "data-[state=unchecked]:translate-x-[3px] data-[state=unchecked]:bg-white/50",
-        // checked thumb: near-black for contrast against lime
-        "data-[state=checked]:translate-x-[17px] data-[state=checked]:bg-[#0a0c10]",
-      )}
-    />
-  </SwitchPrimitives.Root>
-))
-Switch.displayName = SwitchPrimitives.Root.displayName
+type HeroSwitchProps = React.ComponentProps<typeof HeroSwitch>;
 
-export { Switch }
+interface SwitchProps
+  extends Omit<
+    HeroSwitchProps,
+    "children" | "defaultSelected" | "isSelected" | "onChange"
+  > {
+  checked?: boolean;
+  children?: React.ReactNode;
+  defaultChecked?: boolean;
+  disabled?: boolean;
+  onCheckedChange?: (checked: boolean) => void;
+}
+
+const Switch = React.forwardRef<HTMLLabelElement, SwitchProps>(
+  (
+    {
+      checked,
+      children,
+      className,
+      defaultChecked,
+      disabled,
+      isDisabled,
+      onCheckedChange,
+      size = "sm",
+      ...props
+    },
+    ref,
+  ) => (
+    <HeroSwitch
+      ref={ref}
+      className={cn("items-center gap-2", className)}
+      defaultSelected={defaultChecked}
+      isDisabled={disabled || isDisabled}
+      isSelected={checked}
+      size={size}
+      onChange={onCheckedChange}
+      {...props}
+    >
+      <HeroSwitch.Control>
+        <HeroSwitch.Thumb />
+      </HeroSwitch.Control>
+      {children ? <HeroSwitch.Content>{children}</HeroSwitch.Content> : null}
+    </HeroSwitch>
+  ),
+);
+Switch.displayName = "Switch";
+
+export { Switch };

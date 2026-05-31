@@ -1,5 +1,6 @@
 "use server";
 
+import { createHash } from "node:crypto";
 import { redirect } from "next/navigation";
 import { z } from "zod";
 import { cookies } from "next/headers";
@@ -23,7 +24,8 @@ const registerSchema = z.object({
 
 const verifySchema = z.object({
   email: z.email(),
-  code: z.string().length(6),
+  code: z.string().min(6).max(128),
+  provider: z.string().optional(),
 });
 
 export type AuthState = {
@@ -36,6 +38,30 @@ export type AuthState = {
   secret?: string;
   twoFactorEnabled?: boolean;
 };
+
+function authEmailHash(email?: string) {
+  const normalized = email?.trim().toLowerCase();
+  if (!normalized) {
+    return undefined;
+  }
+  return createHash("sha256").update(normalized).digest("hex").slice(0, 16);
+}
+
+function authLogError(error: unknown) {
+  if (!(error instanceof Error)) {
+    return { message: String(error) };
+  }
+  return { name: error.name, message: error.message };
+}
+
+function compactAuthBody(body: Record<string, unknown>) {
+  return {
+    error: body.error,
+    error_description: body.error_description,
+    message: body.message,
+    status: body.status,
+  };
+}
 
 async function setSessionCookies(responseData: {
   token?: string | null;
@@ -151,6 +177,11 @@ export async function registerAction(prevState: AuthState, formData: FormData): 
       email: result.data.email,
       password: result.data.password,
     };
+    console.info("[ops.register] forwarding registration to API", {
+      apiUrl: API_URL,
+      emailHash: authEmailHash(result.data.email),
+      hasUsername: Boolean(result.data.username.trim()),
+    });
 
     const res = await fetch(`${API_URL}/session/new`, {
       method: "POST",
@@ -159,11 +190,21 @@ export async function registerAction(prevState: AuthState, formData: FormData): 
     });
 
     if (!res.ok) {
-      const errorData = await res.json();
+      const errorData = await res.json().catch(() => ({}));
+      console.warn("[ops.register] API rejected registration", {
+        apiUrl: API_URL,
+        emailHash: authEmailHash(result.data.email),
+        status: res.status,
+        body: compactAuthBody(errorData),
+      });
       return { error: errorData.message || "Registration failed" };
     }
   } catch (err) {
-    console.error(err);
+    console.error("[ops.register] registration request failed", {
+      apiUrl: API_URL,
+      emailHash: authEmailHash(result.data.email),
+      error: authLogError(err),
+    });
     return { error: "Registration failed. Please try again." };
   }
 
@@ -175,26 +216,61 @@ export async function verifyAction(prevState: AuthState, formData: FormData): Pr
   const result = verifySchema.safeParse(data);
 
   if (!result.success) {
-    return { error: "Invalid verification code" };
+    return { error: "Invalid verification token" };
   }
 
-  try {
-    const res = await fetch(`${API_URL}/session/validate`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(result.data),
-    });
+  let redirectTo = "/session/access";
 
-    if (!res.ok) {
-      const errorData = await res.json();
-      return { error: errorData.message || "Verification failed" };
+  try {
+    if (result.data.provider === "base") {
+      const baseIdpUrl = (
+        process.env.BASE_IDP_ISSUER ||
+        process.env.NEXT_PUBLIC_BASE_IDP_ISSUER ||
+        "http://localhost:8080"
+      ).replace(/\/+$/, "");
+      const res = await fetch(`${baseIdpUrl}/v1/auth/passwordless/verify`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          destination: result.data.email,
+          channel: "email",
+          code: result.data.code,
+          client_id: process.env.BASE_IDP_CLIENT_ID || "apps-ops",
+        }),
+      });
+
+      if (!res.ok) {
+        const errorData = await res.json().catch(() => ({}));
+        return {
+          error:
+            errorData.message ||
+            errorData.error_description ||
+            "Verification failed",
+        };
+      }
+
+      redirectTo = "/session/access?verified=1";
+    } else {
+      const res = await fetch(`${API_URL}/session/validate`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email: result.data.email,
+          code: result.data.code,
+        }),
+      });
+
+      if (!res.ok) {
+        const errorData = await res.json();
+        return { error: errorData.message || "Verification failed" };
+      }
     }
   } catch (err) {
     console.error(err);
     return { error: "Verification failed. Please try again." };
   }
 
-  redirect("/session/access");
+  redirect(redirectTo);
 }
 
 export async function setup2FAAction(prevState: AuthState): Promise<AuthState> {
@@ -361,6 +437,7 @@ export async function passwordResetConfirmAction(
 ): Promise<AuthState> {
   const token = String(formData.get("token") || "");
   const newPassword = String(formData.get("newPassword") || "");
+  const provider = String(formData.get("provider") || "");
 
   if (!token) {
     return { error: "Reset token is missing." };
@@ -371,6 +448,34 @@ export async function passwordResetConfirmAction(
   }
 
   try {
+    if (provider === "base") {
+      const baseIdpUrl = (
+        process.env.BASE_IDP_ISSUER ||
+        process.env.NEXT_PUBLIC_BASE_IDP_ISSUER ||
+        "http://localhost:8080"
+      ).replace(/\/+$/, "");
+      const res = await fetch(`${baseIdpUrl}/v1/auth/recover/confirm`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ token, new_password: newPassword }),
+      });
+
+      if (!res.ok) {
+        const errorData = await res.json().catch(() => ({}));
+        return {
+          error:
+            errorData.message ||
+            errorData.error_description ||
+            "Password reset failed",
+        };
+      }
+
+      return {
+        success: true,
+        message: "Password updated. You can now sign in.",
+      };
+    }
+
     const res = await fetch(`${API_URL}/session/password-reset/confirm`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },

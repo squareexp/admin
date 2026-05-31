@@ -215,7 +215,7 @@ export function getTaskStatusTone(status: AdminTaskStatus) {
   }
 
   if (status === "in_progress") {
-    return "border-[rgba(205,255,4,0.28)] bg-[rgba(205,255,4,0.12)] text-[var(--sq-brand-action)]";
+    return "border-[rgba(205,255,4,0.28)] bg-[rgba(205,255,4,0.12)] text-sq-brand-action";
   }
 
   return "border-white/10 bg-white/5 text-white/65";
@@ -254,7 +254,7 @@ export function getBillingStatusTone(status: AdminBillingStatus) {
     return "border-white/10 bg-white/5 text-white/65";
   }
 
-  return "border-[rgba(205,255,4,0.22)] bg-[rgba(205,255,4,0.1)] text-[var(--sq-brand-action)]";
+  return "border-[rgba(205,255,4,0.22)] bg-[rgba(205,255,4,0.1)] text-sq-brand-action";
 }
 
 export function getBillingKindTone(kind: AdminBillingKind) {

@@ -97,7 +97,7 @@ export function TeamWorkspace({
                       }
                       void onPromoteMember(member.id, nextRole);
                     }}
-                    className="rounded-full border border-[rgba(205,255,4,0.22)] px-3 py-1.5 text-xs text-[var(--sq-brand-action)] disabled:cursor-not-allowed disabled:opacity-55"
+                    className="rounded-full border border-[rgba(205,255,4,0.22)] px-3 py-1.5 text-xs text-sq-brand-action disabled:cursor-not-allowed disabled:opacity-55"
                   >
                     {isPending ? "Working..." : nextRole ? `Promote to ${nextRole}` : "Top role"}
                   </button>

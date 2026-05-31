@@ -9,6 +9,14 @@
         "button-name": "off"
       }
     ],
-    "typescript-config/is-valid": "off"
+    "typescript-config/is-valid": "off",
+    "axe/forms": [
+      "default",
+      {
+        "select-name": "off",
+        "label": "off"
+      }
+    ],
+    "no-inline-styles": "off"
   }
 }

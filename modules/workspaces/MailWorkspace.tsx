@@ -160,7 +160,7 @@ const POLL_INTERVAL_MS = 30000;
 const MUTED_ICON_BUTTON_CLASS =
   "flex h-9 w-9 items-center justify-center rounded-full border border-white/10 bg-white/5 text-white/60 transition-all hover:bg-white/10 hover:text-white disabled:cursor-not-allowed disabled:opacity-40";
 const MUTED_ICON_BUTTON_ACTIVE_CLASS =
-  "border-[rgba(205,255,4,0.24)] bg-[rgba(205,255,4,0.12)] text-[var(--sq-brand-action)] hover:bg-[rgba(205,255,4,0.16)] hover:text-[var(--sq-brand-action)]";
+  "border-[rgba(205,255,4,0.24)] bg-[rgba(205,255,4,0.12)] text-sq-brand-action hover:bg-[rgba(205,255,4,0.16)] hover:text-sq-brand-action";
 const MUTED_PILL_BUTTON_CLASS =
   "inline-flex h-9 items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 text-[10px] font-medium uppercase tracking-[0.16em] text-white/60 transition-all hover:bg-white/10 hover:text-white disabled:cursor-not-allowed disabled:opacity-40";
 const MUTED_INPUT_CLASS =
@@ -324,7 +324,7 @@ function renderInlineTextWithLinks(value: string, keyPrefix: string) {
             href={safeHref}
             target="_blank"
             rel="noreferrer noopener"
-            className="break-all text-[var(--sq-brand-action)] hover:underline"
+            className="break-all text-sq-brand-action hover:underline"
           >
             {markdownLinkLabel}
           </a>,
@@ -363,7 +363,7 @@ function renderInlineTextWithLinks(value: string, keyPrefix: string) {
             href={safeHref}
             target="_blank"
             rel="noreferrer noopener"
-            className="break-all text-[var(--sq-brand-action)] hover:underline"
+            className="break-all text-sq-brand-action hover:underline"
           >
             {bareLink}
           </a>,
@@ -1755,10 +1755,10 @@ export function MailWorkspace({
 
   return (
     <div className="h-full min-h-0 p-3">
-      <div className="relative flex h-full min-h-[620px] w-full flex-col overflow-hidden rounded-[24px] border border-white/10 bg-[linear-gradient(180deg,rgba(8,11,17,0.96),rgba(5,8,14,0.96))]">
+      <div className="relative flex h-full min-h-155 w-full flex-col overflow-hidden rounded-[24px] border border-white/10 bg-[linear-gradient(180deg,rgba(8,11,17,0.96),rgba(5,8,14,0.96))]">
         <div className="flex min-h-0 flex-1 flex-col md:flex-row">
           {/* Folder Sidebar */}
-          <aside className="hidden w-[72px] shrink-0 border-r border-white/10 bg-[rgba(7,10,15,0.98)] md:flex md:flex-col">
+          <aside className="hidden w-18 shrink-0 border-r border-white/10 bg-[rgba(7,10,15,0.98)] md:flex md:flex-col">
             <div className="flex flex-col items-center gap-2 px-2 py-4">
               <div className="mb-2 flex h-10 w-10 items-center justify-center rounded-[14px] border border-[rgba(205,255,4,0.24)] bg-[rgba(205,255,4,0.1)] ">
                 <MailSnow size={18} color="currentColor" />
@@ -1814,7 +1814,7 @@ export function MailWorkspace({
 
           {/* Message List Section */}
           {!isPreviewExpanded ? (
-            <section className="flex min-h-[260px] w-full flex-col border-b border-white/10 bg-[rgba(8,11,17,0.98)] md:min-h-0 md:w-[390px] md:shrink-0 md:border-b-0 md:border-r xl:w-[430px]">
+            <section className="flex min-h-65 w-full flex-col border-b border-white/10 bg-[rgba(8,11,17,0.98)] md:min-h-0 md:w-97.5 md:shrink-0 md:border-b-0 md:border-r xl:w-107.5">
               <div className="shrink-0 border-b border-white/10 px-4 py-3">
                 <div className="flex items-center justify-between gap-3">
                   <div>
@@ -1881,7 +1881,7 @@ export function MailWorkspace({
                           "flex w-full flex-col items-start border-b border-white/5 px-4 text-left transition-all",
                           isCompactTiles ? "gap-1 py-2.5" : "gap-1.5 py-3.5",
                           isSelected
-                            ? "border-l-2 border-l-[var(--sq-brand-action)] bg-[rgba(205,255,4,0.06)]"
+                            ? "border-l-2 border-l-sq-brand-action bg-[rgba(205,255,4,0.06)]"
                             : "hover:bg-white/4",
                         )}
                       >
@@ -1904,7 +1904,7 @@ export function MailWorkspace({
                             {message.isStarred ? (
                               <Star
                                 size={12}
-                                className="shrink-0 fill-current text-[var(--sq-brand-action)]"
+                                className="shrink-0 fill-current text-sq-brand-action"
                               />
                             ) : null}
                           </div>
@@ -1916,7 +1916,7 @@ export function MailWorkspace({
                               />
                             ) : null}
                             {isUnread ? (
-                              <span className="h-2 w-2 shrink-0 rounded-full bg-[var(--sq-brand-action)] shadow-[0_0_8px_var(--sq-brand-action)]" />
+                              <span className="h-2 w-2 shrink-0 rounded-full bg-sq-brand-action shadow-[0_0_8px_var(--sq-brand-action)]" />
                             ) : null}
                           </div>
                         </div>
@@ -2019,7 +2019,7 @@ export function MailWorkspace({
                   <input
                     value={search}
                     onChange={(event) => setSearch(event.target.value)}
-                    className={cn(MUTED_INPUT_CLASS, "w-[200px]")}
+                    className={cn(MUTED_INPUT_CLASS, "w-50")}
                     placeholder="Search messages"
                   />
                 </div>
@@ -2894,16 +2894,16 @@ export function MailWorkspace({
                       <div className="min-h-0 flex-1 overflow-auto p-5">
                         {isComposePreviewMode ? (
                           composePreviewDocument ? (
-                            <div className="mx-auto max-w-[900px] overflow-hidden rounded-[24px] border border-white/10 bg-white shadow-[0_28px_90px_rgba(0,0,0,0.36)]">
+                            <div className="mx-auto max-w-225 overflow-hidden rounded-[24px] border border-white/10 bg-white shadow-[0_28px_90px_rgba(0,0,0,0.36)]">
                               <iframe
                                 title="Compose preview"
-                                className="min-h-[820px] w-full border-0 bg-white"
+                                className="min-h-205 w-full border-0 bg-white"
                                 srcDoc={composePreviewDocument}
                               />
                             </div>
                           ) : (
-                            <div className="flex h-full min-h-[420px] items-center justify-center rounded-[24px] border border-dashed border-white/10 bg-white/[0.03] px-6 text-center">
-                              <div className="max-w-[420px]">
+                            <div className="flex h-full min-h-105 items-center justify-center rounded-[24px] border border-dashed border-white/10 bg-white/[0.03] px-6 text-center">
+                              <div className="max-w-105">
                                 <p className="text-[14px] font-semibold text-white/72">
                                   {composePreviewError
                                     ? "Preview unavailable right now"
@@ -2919,8 +2919,8 @@ export function MailWorkspace({
                             </div>
                           )
                         ) : (
-                          <div className="flex h-full min-h-[420px] items-center justify-center rounded-[24px] border border-dashed border-white/10 bg-white/[0.03] px-6 text-center">
-                            <div className="max-w-[420px]">
+                          <div className="flex h-full min-h-105 items-center justify-center rounded-[24px] border border-dashed border-white/10 bg-white/[0.03] px-6 text-center">
+                            <div className="max-w-105">
                               <p className="text-[14px] font-semibold text-white/72">
                                 Thread replies keep the native mailbox flow
                               </p>

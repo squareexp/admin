@@ -42,7 +42,7 @@ export const GlobalInfoPanel: React.FC<GlobalInfoPanelProps> = ({
         <h3 className="text-sm font-bold text-white mb-3">Members</h3>
         <div className="space-y-3">
           <div className="flex items-center gap-3">
-            <div className="flex h-10 w-10 items-center justify-center rounded-full border border-[rgba(205,255,4,0.18)] bg-[rgba(205,255,4,0.08)] text-[12px] font-semibold text-[var(--sq-brand-action)] shadow-[inset_0_1px_0_rgba(255,255,255,0.03)] backdrop-blur-xl">
+            <div className="flex h-10 w-10 items-center justify-center rounded-full border border-[rgba(205,255,4,0.18)] bg-[rgba(205,255,4,0.08)] text-[12px] font-semibold text-sq-brand-action shadow-[inset_0_1px_0_rgba(255,255,255,0.03)] backdrop-blur-xl">
               {currentUser?.username?.[0]?.toUpperCase() || "Y"}
             </div>
             <div className="flex min-w-0 flex-col">

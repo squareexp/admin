@@ -7,7 +7,7 @@ export const glassButtonBaseClass =
 export const glassButtonNeutralClass = `${glassButtonBaseClass} ${glassInteractiveBaseClass}`
 
 export const glassButtonAccentClass =
-  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-[14px] border border-[rgba(205,255,4,0.22)] bg-[rgba(205,255,4,0.1)] text-[var(--sq-brand-action)] shadow-[inset_0_1px_0_rgba(255,255,255,0.03)] backdrop-blur-xl transition-all duration-200 hover:bg-[rgba(205,255,4,0.16)] hover:text-[var(--sq-brand-action)] focus-visible:outline-none focus-visible:ring-0 focus-visible:border-[rgba(205,255,4,0.3)] disabled:cursor-not-allowed disabled:opacity-50"
+  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-[14px] border border-[rgba(205,255,4,0.22)] bg-[rgba(205,255,4,0.1)] text-sq-brand-action shadow-[inset_0_1px_0_rgba(255,255,255,0.03)] backdrop-blur-xl transition-all duration-200 hover:bg-[rgba(205,255,4,0.16)] hover:text-sq-brand-action focus-visible:outline-none focus-visible:ring-0 focus-visible:border-[rgba(205,255,4,0.3)] disabled:cursor-not-allowed disabled:opacity-50"
 
 export const glassButtonDangerClass =
   "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-[14px] border border-rose-400/22 bg-rose-400/10 text-rose-100 shadow-[inset_0_1px_0_rgba(255,255,255,0.03)] backdrop-blur-xl transition-all duration-200 hover:bg-rose-400/16 hover:text-white focus-visible:outline-none focus-visible:ring-0 focus-visible:border-rose-400/30 disabled:cursor-not-allowed disabled:opacity-50"
@@ -22,7 +22,7 @@ export const glassPillButtonClass =
   `inline-flex items-center justify-center gap-2 rounded-full px-3 ${glassInteractiveBaseClass}`
 
 export const glassPillAccentButtonClass =
-  "inline-flex items-center justify-center gap-2 rounded-full px-3 border border-[rgba(205,255,4,0.22)] bg-[rgba(205,255,4,0.1)] text-[var(--sq-brand-action)] shadow-[inset_0_1px_0_rgba(255,255,255,0.03)] backdrop-blur-xl transition-all duration-200 hover:bg-[rgba(205,255,4,0.16)] hover:text-[var(--sq-brand-action)] focus-visible:outline-none focus-visible:ring-0 focus-visible:border-[rgba(205,255,4,0.3)] disabled:cursor-not-allowed disabled:opacity-50"
+  "inline-flex items-center justify-center gap-2 rounded-full px-3 border border-[rgba(205,255,4,0.22)] bg-[rgba(205,255,4,0.1)] text-sq-brand-action shadow-[inset_0_1px_0_rgba(255,255,255,0.03)] backdrop-blur-xl transition-all duration-200 hover:bg-[rgba(205,255,4,0.16)] hover:text-sq-brand-action focus-visible:outline-none focus-visible:ring-0 focus-visible:border-[rgba(205,255,4,0.3)] disabled:cursor-not-allowed disabled:opacity-50"
 
 export const glassInputClass =
   "w-full rounded-[14px] border border-white/10 bg-white/5 px-3 text-sm text-white/72 shadow-[inset_0_1px_0_rgba(255,255,255,0.03)] backdrop-blur-xl transition-all duration-200 placeholder:text-white/35 hover:bg-white/10 hover:text-white focus-visible:outline-none focus-visible:ring-0 focus-visible:border-white/18 focus-visible:bg-white/10 disabled:cursor-not-allowed disabled:opacity-50"

@@ -26,7 +26,7 @@ export function MetricCard({
           <p className="text-[10px] uppercase tracking-[0.22em] text-white/40">{label}</p>
           <p className="mt-1.5 text-2xl font-semibold tracking-[-0.04em] text-white">{value}</p>
         </div>
-        <div className="flex h-9 w-9 items-center justify-center rounded-[12px] border border-[rgba(205,255,4,0.16)] bg-[rgba(205,255,4,0.1)] text-[var(--sq-brand-action)]">
+        <div className="flex h-9 w-9 items-center justify-center rounded-[12px] border border-[rgba(205,255,4,0.16)] bg-[rgba(205,255,4,0.1)] text-sq-brand-action">
           <Icon variant="Bulk" size={18} color="currentColor" />
         </div>
       </div>

@@ -137,7 +137,7 @@ export function SettingsPanel({
           >
             <div className="flex items-start justify-between gap-4 border-b border-white/10 px-6 py-5">
               <div>
-                <p className="text-[10px] uppercase tracking-[0.28em] text-[var(--sq-brand-action)]/78">
+                <p className="text-[10px] uppercase tracking-[0.28em] text-sq-brand-action/78">
                   Settings
                 </p>
                 <h2 className="mt-2 text-2xl font-semibold text-white">Admin system controls</h2>
@@ -430,7 +430,7 @@ export function SettingsPanel({
                   <button
                     type="submit"
                     disabled={isSaving || !isReady}
-                    className="rounded-[18px] border border-[rgba(205,255,4,0.24)] bg-[rgba(205,255,4,0.12)] px-4 py-3 text-sm font-medium text-[var(--sq-brand-action)] disabled:opacity-50"
+                    className="rounded-[18px] border border-[rgba(205,255,4,0.24)] bg-[rgba(205,255,4,0.12)] px-4 py-3 text-sm font-medium text-sq-brand-action disabled:opacity-50"
                   >
                     {!isReady ? "Loading settings..." : isSaving ? "Saving settings..." : "Save settings"}
                   </button>

@@ -1,7 +1,24 @@
-"use client"
+"use client";
 
-import * as AspectRatioPrimitive from "@radix-ui/react-aspect-ratio"
+import * as React from "react";
+import { Surface } from "@heroui/react";
 
-const AspectRatio = AspectRatioPrimitive.Root
+import { cn } from "@/lib/utils";
 
-export { AspectRatio }
+type AspectRatioProps = React.ComponentProps<typeof Surface> & {
+  ratio?: number;
+};
+
+const AspectRatio = React.forwardRef<HTMLDivElement, AspectRatioProps>(
+  ({ className, ratio = 16 / 9, style, ...props }, ref) => (
+    <Surface
+      ref={ref}
+      className={cn("relative overflow-hidden", className)}
+      style={{ aspectRatio: String(ratio), ...style }}
+      {...props}
+    />
+  ),
+);
+AspectRatio.displayName = "AspectRatio";
+
+export { AspectRatio };

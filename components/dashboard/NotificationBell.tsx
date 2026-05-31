@@ -81,7 +81,7 @@ export function NotificationBell({
             {unreadCount > 0 ? (
               <button
                 onClick={onMarkAllRead}
-                className="text-[11px] text-[var(--sq-brand-action)] transition hover:underline"
+                className="text-[11px] text-sq-brand-action transition hover:underline"
               >
                 Mark all read
               </button>

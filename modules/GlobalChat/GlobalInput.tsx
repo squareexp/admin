@@ -64,7 +64,7 @@ export const GlobalInput: React.FC<GlobalInputProps> = ({
                 onClick={() => setShowEmojiPicker(!showEmojiPicker)}
                 className={cn(
                   "flex h-10 w-10 items-center justify-center rounded-full transition-colors",
-                  showEmojiPicker ? "text-[var(--sq-brand-action)] bg-white/5" : "text-white/40 hover:text-white/60 hover:bg-white/5"
+                  showEmojiPicker ? "text-sq-brand-action bg-white/5" : "text-white/40 hover:text-white/60 hover:bg-white/5"
                 )}
               >
                 <Smile size={18} />

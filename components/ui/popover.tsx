@@ -1,33 +1,47 @@
-"use client"
+"use client";
 
-import * as React from "react"
-import * as PopoverPrimitive from "@radix-ui/react-popover"
+import * as React from "react";
+import { Popover as HeroPopover } from "@heroui/react";
 
-import { cn } from "@/lib/utils"
+import { cn } from "@/lib/utils";
 
-const Popover = PopoverPrimitive.Root
+const Popover = HeroPopover;
+const PopoverTrigger = HeroPopover.Trigger;
 
-const PopoverTrigger = PopoverPrimitive.Trigger
+const PopoverAnchor = ({ children }: { children: React.ReactNode }) => <>{children}</>;
 
-const PopoverAnchor = PopoverPrimitive.Anchor
+type PopoverContentProps = Omit<
+  React.ComponentProps<typeof HeroPopover.Content>,
+  "children"
+> & {
+  align?: "start" | "center" | "end";
+  children: React.ReactNode;
+  side?: "top" | "right" | "bottom" | "left";
+  sideOffset?: number;
+};
 
-const PopoverContent = React.forwardRef<
-  React.ElementRef<typeof PopoverPrimitive.Content>,
-  React.ComponentPropsWithoutRef<typeof PopoverPrimitive.Content>
->(({ className, align = "center", sideOffset = 4, ...props }, ref) => (
-  <PopoverPrimitive.Portal>
-    <PopoverPrimitive.Content
+const placementFor = (
+  side?: PopoverContentProps["side"],
+  align?: PopoverContentProps["align"],
+) => {
+  if (!side) return undefined;
+  if (!align || align === "center") return side;
+  return `${side} ${align}`;
+};
+
+const PopoverContent = React.forwardRef<HTMLDivElement, PopoverContentProps>(
+  ({ align = "center", children, className, side, sideOffset = 4, ...props }, ref) => (
+    <HeroPopover.Content
       ref={ref}
-      align={align}
-      sideOffset={sideOffset}
-      className={cn(
-        "z-50 w-72 rounded-md border bg-popover p-4 text-popover-foreground shadow-md outline-none data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 origin-[--radix-popover-content-transform-origin]",
-        className
-      )}
+      offset={sideOffset}
+      placement={placementFor(side, align) as React.ComponentProps<typeof HeroPopover.Content>["placement"]}
+      className={cn("z-50 w-72 p-0", className)}
       {...props}
-    />
-  </PopoverPrimitive.Portal>
-))
-PopoverContent.displayName = PopoverPrimitive.Content.displayName
+    >
+      <HeroPopover.Dialog className="p-4 outline-none">{children}</HeroPopover.Dialog>
+    </HeroPopover.Content>
+  ),
+);
+PopoverContent.displayName = "PopoverContent";
 
-export { Popover, PopoverTrigger, PopoverContent, PopoverAnchor }
+export { Popover, PopoverTrigger, PopoverContent, PopoverAnchor };

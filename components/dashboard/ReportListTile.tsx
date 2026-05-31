@@ -36,7 +36,7 @@ function getPriorityTone(priority: ReportItem["priority"]) {
     return "border-sky-400/25 bg-sky-400/10 text-sky-200";
   }
 
-  return "border-[rgba(205,255,4,0.22)] bg-[rgba(205,255,4,0.1)] text-[var(--sq-brand-action)]";
+  return "border-[rgba(205,255,4,0.22)] bg-[rgba(205,255,4,0.1)] text-sq-brand-action";
 }
 
 function getStatusTone(status: ReportItem["status"]) {
@@ -52,7 +52,7 @@ function getStatusTone(status: ReportItem["status"]) {
     return "border-white/12 bg-white/5 text-white/70";
   }
 
-  return "border-[rgba(205,255,4,0.22)] bg-[rgba(205,255,4,0.1)] text-[var(--sq-brand-action)]";
+  return "border-[rgba(205,255,4,0.22)] bg-[rgba(205,255,4,0.1)] text-sq-brand-action";
 }
 
 export function ReportListTile({
@@ -140,7 +140,7 @@ export function ReportListTile({
               tags: [report.type.toLowerCase(), "reports"],
             })
           }
-          className="inline-flex items-center gap-2 rounded-full border border-[rgba(205,255,4,0.22)] px-3 py-1.5 text-xs uppercase tracking-[0.12em] text-[var(--sq-brand-action)]"
+          className="inline-flex items-center gap-2 rounded-full border border-[rgba(205,255,4,0.22)] px-3 py-1.5 text-xs uppercase tracking-[0.12em] text-sq-brand-action"
         >
           <ClipboardTick variant="Bulk" size={16} color="currentColor" />
           Push to tasks

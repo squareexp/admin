@@ -105,7 +105,7 @@ export const SupportContent: React.FC<SupportContentProps> = ({
             </h2>
             <div className="mt-1 flex items-center gap-2 text-[11px] uppercase tracking-[0.16em] text-white/32">
               {activeSession?.connected ? (
-                <span className="text-[var(--sq-brand-action)]">Online</span>
+                <span className="text-sq-brand-action">Online</span>
               ) : (
                 <span>{new Date(activeSession?.lastSeenAt || "").toLocaleDateString()}</span>
               )}
@@ -212,7 +212,7 @@ export const SupportContent: React.FC<SupportContentProps> = ({
             <button
               type="button"
               onClick={() => setShowEmojiPicker(!showEmojiPicker)}
-              className={cn(glassIconButtonClass, showEmojiPicker && "text-[var(--sq-brand-action)]")}
+              className={cn(glassIconButtonClass, showEmojiPicker && "text-sq-brand-action")}
               title="Emoji"
             >
               <Smile size={16} />

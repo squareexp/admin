@@ -364,7 +364,7 @@ export function MessageInboxWorkspace({
           eyebrow="Communications"
           className="hidden h-full flex-col items-center justify-center bg-black/40 p-8 text-center xl:flex"
         >
-          <div className="flex h-20 w-20 items-center justify-center rounded-full border border-white/10 bg-white/5 text-[var(--sq-brand-action)] shadow-[0_18px_40px_rgba(0,0,0,0.2)] backdrop-blur-xl">
+          <div className="flex h-20 w-20 items-center justify-center rounded-full border border-white/10 bg-white/5 text-sq-brand-action shadow-[0_18px_40px_rgba(0,0,0,0.2)] backdrop-blur-xl">
             <DirectInbox variant="Bulk" size={34} color="currentColor" />
           </div>
           <p className="mt-6 max-w-md text-[13px] leading-7 text-white/46">

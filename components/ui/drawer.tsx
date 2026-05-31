@@ -1,111 +1,152 @@
-"use client"
+"use client";
 
-import * as React from "react"
-import { Drawer as DrawerPrimitive } from "vaul"
+import * as React from "react";
+import { Drawer as HeroDrawer, useOverlayState } from "@heroui/react";
 
-import { cn } from "@/lib/utils"
+import { cn } from "@/lib/utils";
 
-const Drawer = ({
-  shouldScaleBackground = true,
-  ...props
-}: React.ComponentProps<typeof DrawerPrimitive.Root>) => (
-  <DrawerPrimitive.Root
-    shouldScaleBackground={shouldScaleBackground}
-    {...props}
-  />
-)
-Drawer.displayName = "Drawer"
+type DrawerDirection = "bottom" | "left" | "right" | "top";
 
-const DrawerTrigger = DrawerPrimitive.Trigger
+type DrawerContextValue = {
+  direction: DrawerDirection;
+  state: ReturnType<typeof useOverlayState>;
+};
 
-const DrawerPortal = DrawerPrimitive.Portal
+const DrawerContext = React.createContext<DrawerContextValue | null>(null);
 
-const DrawerClose = DrawerPrimitive.Close
+type DrawerRootProps = {
+  children: React.ReactNode;
+  defaultOpen?: boolean;
+  direction?: DrawerDirection;
+  onOpenChange?: (open: boolean) => void;
+  open?: boolean;
+  shouldScaleBackground?: boolean;
+};
+
+function DrawerRoot({
+  children,
+  defaultOpen,
+  direction = "bottom",
+  onOpenChange,
+  open,
+}: DrawerRootProps) {
+  const state = useOverlayState({
+    defaultOpen,
+    isOpen: open,
+    onOpenChange,
+  });
+
+  return (
+    <DrawerContext.Provider value={{ direction, state }}>
+      <HeroDrawer state={state}>{children}</HeroDrawer>
+    </DrawerContext.Provider>
+  );
+}
+
+const DrawerTrigger = HeroDrawer.Trigger;
+const DrawerPortal = ({ children }: { children: React.ReactNode }) => <>{children}</>;
+const DrawerClose = HeroDrawer.CloseTrigger;
 
 const DrawerOverlay = React.forwardRef<
-  React.ElementRef<typeof DrawerPrimitive.Overlay>,
-  React.ComponentPropsWithoutRef<typeof DrawerPrimitive.Overlay>
->(({ className, ...props }, ref) => (
-  <DrawerPrimitive.Overlay
+  HTMLDivElement,
+  React.ComponentProps<typeof HeroDrawer.Backdrop>
+>(({ className, children, ...props }, ref) => (
+  <HeroDrawer.Backdrop
     ref={ref}
     className={cn("fixed inset-0 z-50 bg-black/80", className)}
     {...props}
-  />
-))
-DrawerOverlay.displayName = DrawerPrimitive.Overlay.displayName
+  >
+    {children}
+  </HeroDrawer.Backdrop>
+));
+DrawerOverlay.displayName = "DrawerOverlay";
 
 const DrawerContent = React.forwardRef<
-  React.ElementRef<typeof DrawerPrimitive.Content>,
-  React.ComponentPropsWithoutRef<typeof DrawerPrimitive.Content>
->(({ className, children, ...props }, ref) => (
-  <DrawerPortal>
-    <DrawerOverlay />
-    <DrawerPrimitive.Content
-      ref={ref}
-      className={cn(
-        "fixed inset-x-0 bottom-0 z-50 mt-24 flex h-auto flex-col rounded-t-[10px] border bg-background",
-        className
-      )}
-      {...props}
-    >
-      <div className="mx-auto mt-4 h-2 w-[100px] rounded-full bg-muted" />
-      {children}
-    </DrawerPrimitive.Content>
-  </DrawerPortal>
-))
-DrawerContent.displayName = "DrawerContent"
+  HTMLDivElement,
+  Omit<React.ComponentProps<typeof HeroDrawer.Dialog>, "children"> & {
+    children: React.ReactNode;
+  }
+>(({ className, children, ...props }, ref) => {
+  const context = React.useContext(DrawerContext);
+  const placement = context?.direction ?? "bottom";
+
+  return (
+    <HeroDrawer.Content placement={placement}>
+      <HeroDrawer.Dialog
+        className={cn(
+          "fixed z-50 flex h-auto flex-col border bg-background text-foreground shadow-lg",
+          placement === "left" && "left-2 top-2 bottom-2 w-72",
+          placement === "right" && "right-2 top-2 bottom-2 w-72",
+          placement === "top" && "inset-x-2 top-2",
+          placement === "bottom" && "inset-x-2 bottom-2",
+          className,
+        )}
+        {...props}
+      >
+        <div ref={ref} className="contents">
+          {children}
+        </div>
+      </HeroDrawer.Dialog>
+    </HeroDrawer.Content>
+  );
+});
+DrawerContent.displayName = "DrawerContent";
 
 const DrawerHeader = ({
   className,
   ...props
 }: React.HTMLAttributes<HTMLDivElement>) => (
-  <div
+  <HeroDrawer.Header
     className={cn("grid gap-1.5 p-4 text-center sm:text-left", className)}
     {...props}
   />
-)
-DrawerHeader.displayName = "DrawerHeader"
+);
+DrawerHeader.displayName = "DrawerHeader";
 
 const DrawerFooter = ({
   className,
   ...props
 }: React.HTMLAttributes<HTMLDivElement>) => (
-  <div
-    className={cn("mt-auto flex flex-col gap-2 p-4", className)}
-    {...props}
-  />
-)
-DrawerFooter.displayName = "DrawerFooter"
+  <HeroDrawer.Footer className={cn("mt-auto flex flex-col gap-2 p-4", className)} {...props} />
+);
+DrawerFooter.displayName = "DrawerFooter";
 
 const DrawerTitle = React.forwardRef<
-  React.ElementRef<typeof DrawerPrimitive.Title>,
-  React.ComponentPropsWithoutRef<typeof DrawerPrimitive.Title>
+  HTMLHeadingElement,
+  React.ComponentProps<typeof HeroDrawer.Heading>
 >(({ className, ...props }, ref) => (
-  <DrawerPrimitive.Title
+  <HeroDrawer.Heading
     ref={ref}
-    className={cn(
-      "text-lg font-semibold leading-none tracking-tight",
-      className
-    )}
+    className={cn("text-lg font-semibold leading-none tracking-tight", className)}
     {...props}
   />
-))
-DrawerTitle.displayName = DrawerPrimitive.Title.displayName
+));
+DrawerTitle.displayName = "DrawerTitle";
 
 const DrawerDescription = React.forwardRef<
-  React.ElementRef<typeof DrawerPrimitive.Description>,
-  React.ComponentPropsWithoutRef<typeof DrawerPrimitive.Description>
+  HTMLParagraphElement,
+  React.HTMLAttributes<HTMLParagraphElement>
 >(({ className, ...props }, ref) => (
-  <DrawerPrimitive.Description
-    ref={ref}
-    className={cn("text-sm text-muted-foreground", className)}
-    {...props}
-  />
-))
-DrawerDescription.displayName = DrawerPrimitive.Description.displayName
+  <p ref={ref} className={cn("text-sm text-muted-foreground", className)} {...props} />
+));
+DrawerDescription.displayName = "DrawerDescription";
+
+const Drawer = {
+  Root: DrawerRoot,
+  Trigger: DrawerTrigger,
+  Portal: DrawerPortal,
+  Overlay: DrawerOverlay,
+  Content: DrawerContent,
+  Close: DrawerClose,
+  Header: DrawerHeader,
+  Footer: DrawerFooter,
+  Title: DrawerTitle,
+  Description: DrawerDescription,
+};
 
 export {
   Drawer,
+  DrawerRoot,
   DrawerPortal,
   DrawerOverlay,
   DrawerTrigger,
@@ -115,4 +156,4 @@ export {
   DrawerFooter,
   DrawerTitle,
   DrawerDescription,
-}
+};

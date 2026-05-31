@@ -1,8 +1,26 @@
 import * as React from "react"
-import { Slot } from "@radix-ui/react-slot"
 import { ChevronRight, MoreHorizontal } from "lucide-react"
 
 import { cn } from "@/lib/utils"
+
+const Slot = React.forwardRef<HTMLElement, React.HTMLAttributes<HTMLElement>>(
+  ({ children, className, ...props }, ref) => {
+    if (React.isValidElement(children)) {
+      const child = children as React.ReactElement<{ className?: string }>;
+      return React.cloneElement(child, {
+        ...props,
+        className: cn(className, child.props.className),
+      } as React.HTMLAttributes<HTMLElement>);
+    }
+
+    return (
+      <span ref={ref as React.Ref<HTMLSpanElement>} className={className} {...props}>
+        {children}
+      </span>
+    );
+  },
+);
+Slot.displayName = "Slot";
 
 const Breadcrumb = React.forwardRef<
   HTMLElement,

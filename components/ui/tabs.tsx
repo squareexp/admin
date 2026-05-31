@@ -1,56 +1,73 @@
-"use client"
+"use client";
 
-import * as React from "react"
-import * as TabsPrimitive from "@radix-ui/react-tabs"
+import * as React from "react";
+import { Tabs as HeroTabs } from "@heroui/react";
+import { cn } from "@/lib/utils";
 
-import { glassTabsListClass, glassTabsTriggerClass } from "@/components/ui/glass"
-import { cn } from "@/lib/utils"
+type TabsProps = {
+  children: React.ReactNode;
+  className?: string;
+  defaultValue?: string;
+  onValueChange?: (value: string) => void;
+  value?: string;
+};
 
-const Tabs = TabsPrimitive.Root
+const Tabs = React.forwardRef<HTMLDivElement, TabsProps>(
+  ({ children, className, defaultValue, onValueChange, value }, ref) => (
+    <HeroTabs
+      ref={ref}
+      className={className}
+      defaultSelectedKey={defaultValue}
+      selectedKey={value}
+      variant="secondary"
+      onSelectionChange={(key) => onValueChange?.(String(key))}
+    >
+      {children}
+    </HeroTabs>
+  ),
+);
+Tabs.displayName = "Tabs";
 
 const TabsList = React.forwardRef<
-  React.ElementRef<typeof TabsPrimitive.List>,
-  React.ComponentPropsWithoutRef<typeof TabsPrimitive.List>
->(({ className, ...props }, ref) => (
-  <TabsPrimitive.List
-    ref={ref}
-    className={cn(
-      `${glassTabsListClass} h-9`,
-      className
-    )}
-    {...props}
-  />
-))
-TabsList.displayName = TabsPrimitive.List.displayName
+  HTMLDivElement,
+  React.HTMLAttributes<HTMLDivElement>
+>(({ className, children, ...props }, ref) => (
+  <HeroTabs.ListContainer ref={ref} className={cn("inline-flex", className)} {...props}>
+    <HeroTabs.List aria-label="Tabs">{children}</HeroTabs.List>
+  </HeroTabs.ListContainer>
+));
+TabsList.displayName = "TabsList";
 
 const TabsTrigger = React.forwardRef<
-  React.ElementRef<typeof TabsPrimitive.Trigger>,
-  React.ComponentPropsWithoutRef<typeof TabsPrimitive.Trigger>
->(({ className, ...props }, ref) => (
-  <TabsPrimitive.Trigger
+  HTMLDivElement,
+  React.HTMLAttributes<HTMLDivElement> & { value: string; disabled?: boolean }
+>(({ className, children, disabled, value, ...props }, ref) => (
+  <HeroTabs.Tab
+    {...(props as unknown as Partial<React.ComponentProps<typeof HeroTabs.Tab>>)}
     ref={ref}
-    className={cn(
-      `${glassTabsTriggerClass} inline-flex items-center justify-center whitespace-nowrap py-1 text-sm font-medium disabled:pointer-events-none disabled:opacity-50`,
-      className
-    )}
-    {...props}
-  />
-))
-TabsTrigger.displayName = TabsPrimitive.Trigger.displayName
+    id={value}
+    isDisabled={disabled}
+    className={cn("inline-flex items-center justify-center whitespace-nowrap py-1 text-sm font-medium", className)}
+  >
+    {children}
+    <HeroTabs.Indicator />
+  </HeroTabs.Tab>
+));
+TabsTrigger.displayName = "TabsTrigger";
 
 const TabsContent = React.forwardRef<
-  React.ElementRef<typeof TabsPrimitive.Content>,
-  React.ComponentPropsWithoutRef<typeof TabsPrimitive.Content>
->(({ className, ...props }, ref) => (
-  <TabsPrimitive.Content
+  HTMLDivElement,
+  React.HTMLAttributes<HTMLDivElement> & { value: string }
+>(({ className, children, value, ...props }, ref) => (
+  <HeroTabs.Panel
+    {...(props as unknown as Partial<React.ComponentProps<typeof HeroTabs.Panel>>)}
     ref={ref}
-    className={cn(
-      "mt-2 ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
-      className
-    )}
-    {...props}
-  />
-))
-TabsContent.displayName = TabsPrimitive.Content.displayName
+    id={value}
+    className={cn("mt-2 focus-visible:outline-none", className)}
+  >
+    {children}
+  </HeroTabs.Panel>
+));
+TabsContent.displayName = "TabsContent";
 
-export { Tabs, TabsList, TabsTrigger, TabsContent }
+export { Tabs, TabsList, TabsTrigger, TabsContent };

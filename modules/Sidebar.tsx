@@ -155,7 +155,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
                     className={cn(
                       "flex h-9 w-9 shrink-0 items-center justify-center rounded-[14px] border transition-colors",
                       isActive
-                        ? "border-[rgba(205,255,4,0.22)] bg-[rgba(205,255,4,0.14)] text-[var(--sq-brand-action)]"
+                        ? "border-[rgba(205,255,4,0.22)] bg-[rgba(205,255,4,0.14)] text-sq-brand-action"
                         : "border-white/10 bg-white/[0.03] text-white/55",
                     )}
                   >
@@ -221,7 +221,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
                 className={cn(
                   "flex h-9 w-9 shrink-0 items-center justify-center rounded-[14px] border transition-colors",
                   activeSection === "billings"
-                    ? "border-[rgba(205,255,4,0.22)] bg-[rgba(205,255,4,0.14)] text-[var(--sq-brand-action)]"
+                    ? "border-[rgba(205,255,4,0.22)] bg-[rgba(205,255,4,0.14)] text-sq-brand-action"
                     : "border-white/10 bg-white/3 text-white/55",
                 )}
               >

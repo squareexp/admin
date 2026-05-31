@@ -60,7 +60,7 @@ export const GlobalChat: React.FC<GlobalChatProps> = ({
       <div className="relative flex min-h-0 flex-1 flex-col bg-transparent">
         <div className="flex items-center justify-between gap-3 border-b border-dashed border-white/10 p-3">
           <div className="flex min-w-0 items-center gap-3">
-            <div className="flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-[var(--sq-brand-action)]/10 text-[12px] font-semibold text-[var(--sq-brand-action)] shadow-[inset_0_1px_0_rgba(255,255,255,0.03)] backdrop-blur-xl">
+            <div className="flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-[var(--sq-brand-action)]/10 text-[12px] font-semibold text-sq-brand-action shadow-[inset_0_1px_0_rgba(255,255,255,0.03)] backdrop-blur-xl">
               C
             </div>
             <div className="min-w-0">
@@ -86,7 +86,7 @@ export const GlobalChat: React.FC<GlobalChatProps> = ({
               onClick={() => setIsMembersPanelOpen(!isMembersPanelOpen)}
               className={cn(
                 glassIconButtonClass,
-                isMembersPanelOpen ? "text-[var(--sq-brand-action)]" : ""
+                isMembersPanelOpen ? "text-sq-brand-action" : ""
               )}
             >
               <SidebarRight size={18} color="currentColor" />

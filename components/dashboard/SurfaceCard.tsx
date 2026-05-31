@@ -23,7 +23,7 @@ export function SurfaceCard({
     >
       <div className="absolute inset-x-5 top-0 h-px bg-gradient-to-r from-transparent via-white/25 to-transparent" />
       <div className="mb-4">
-        <p className="text-[9px] uppercase tracking-[0.28em] text-[var(--sq-brand-action)]/70">
+        <p className="text-[9px] uppercase tracking-[0.28em] text-sq-brand-action/70">
           {eyebrow}
         </p>
         <h3 className="mt-1.5 text-[15px] font-semibold tracking-[-0.01em] text-white">{title}</h3>

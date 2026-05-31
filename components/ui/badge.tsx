@@ -1,36 +1,41 @@
-import * as React from "react"
-import { cva, type VariantProps } from "class-variance-authority"
+import * as React from "react";
+import { Chip } from "@heroui/react";
 
-import { cn } from "@/lib/utils"
+import { cn } from "@/lib/utils";
 
-const badgeVariants = cva(
-  "inline-flex items-center rounded-md border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2",
-  {
-    variants: {
-      variant: {
-        default:
-          "border-transparent bg-primary text-primary-foreground shadow",
-        secondary:
-          "border-transparent bg-secondary text-secondary-foreground",
-        destructive:
-          "border-transparent bg-destructive text-destructive-foreground shadow",
-        outline: "text-foreground",
-      },
-    },
-    defaultVariants: {
-      variant: "default",
-    },
-  }
-)
+type BadgeVariant = "default" | "secondary" | "destructive" | "outline";
+
+const badgeVariants = ({
+  className,
+  variant = "default",
+}: {
+  className?: string;
+  variant?: BadgeVariant | null;
+} = {}) =>
+  cn(
+    "inline-flex items-center rounded-md border px-2.5 py-0.5 text-xs font-semibold transition-colors",
+    variant === "outline" && "bg-transparent text-foreground",
+    className,
+  );
 
 export interface BadgeProps
-  extends React.HTMLAttributes<HTMLDivElement>,
-    VariantProps<typeof badgeVariants> {}
-
-function Badge({ className, variant, ...props }: BadgeProps) {
-  return (
-    <div className={cn(badgeVariants({ variant }), className)} {...props} />
-  )
+  extends Omit<React.ComponentProps<typeof Chip>, "color" | "variant"> {
+  variant?: BadgeVariant;
 }
 
-export { Badge, badgeVariants }
+function Badge({ children, className, variant = "default", ...props }: BadgeProps) {
+  const color = variant === "destructive" ? "danger" : variant === "secondary" ? "default" : "accent";
+
+  return (
+    <Chip
+      color={color}
+      variant={variant === "outline" ? "tertiary" : variant === "secondary" ? "secondary" : "primary"}
+      className={badgeVariants({ variant, className })}
+      {...props}
+    >
+      {children}
+    </Chip>
+  );
+}
+
+export { Badge, badgeVariants };

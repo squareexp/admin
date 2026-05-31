@@ -117,7 +117,7 @@ const statusMeta: Record<
   },
   paid: {
     label: "Paid",
-    tone: "text-[var(--sq-brand-action)]",
+    tone: "text-sq-brand-action",
     border: "border-[rgba(205,255,4,0.22)]",
     bg: "bg-[rgba(205,255,4,0.1)]",
   },
@@ -953,7 +953,7 @@ export function InvoiceWorkspace({
               type="button"
               onClick={() => void saveDraft()}
               disabled={isSaving || isReviewing || !isDirty}
-              className="inline-flex items-center gap-2 rounded-full border border-[rgba(205,255,4,0.22)] bg-[rgba(205,255,4,0.1)] px-3 py-1.5 text-xs font-medium text-[var(--sq-brand-action)] transition-colors hover:bg-[rgba(205,255,4,0.16)] disabled:cursor-not-allowed disabled:opacity-60"
+              className="inline-flex items-center gap-2 rounded-full border border-[rgba(205,255,4,0.22)] bg-[rgba(205,255,4,0.1)] px-3 py-1.5 text-xs font-medium text-sq-brand-action transition-colors hover:bg-[rgba(205,255,4,0.16)] disabled:cursor-not-allowed disabled:opacity-60"
             >
               {isSaving ? (
                 <>
@@ -992,7 +992,7 @@ export function InvoiceWorkspace({
                       className={cn(
                         "inline-flex items-center gap-2 rounded-full border px-3 py-1.5 text-xs transition-colors",
                         selected
-                          ? "border-[rgba(205,255,4,0.22)] bg-[rgba(205,255,4,0.1)] text-[var(--sq-brand-action)]"
+                          ? "border-[rgba(205,255,4,0.22)] bg-[rgba(205,255,4,0.1)] text-sq-brand-action"
                           : "border-white/10 bg-white/[0.03] text-white/60 hover:border-white/18 hover:text-white/82",
                       )}
                     >
@@ -1040,7 +1040,7 @@ export function InvoiceWorkspace({
                 <div className="rounded-[18px] border border-[rgba(205,255,4,0.18)] bg-[rgba(205,255,4,0.08)] p-3">
                   <div className="flex items-start justify-between gap-3">
                     <div>
-                      <p className="text-[10px] uppercase tracking-[0.24em] text-[var(--sq-brand-action)]/80">
+                      <p className="text-[10px] uppercase tracking-[0.24em] text-sq-brand-action/80">
                         Working draft
                       </p>
                       <p className="mt-1 text-sm font-semibold text-white">{draft.number}</p>
@@ -1048,7 +1048,7 @@ export function InvoiceWorkspace({
                         This draft is editable but not yet in the saved queue.
                       </p>
                     </div>
-                    <span className="rounded-full border border-[rgba(205,255,4,0.22)] px-2.5 py-1 text-[10px] uppercase tracking-[0.16em] text-[var(--sq-brand-action)]">
+                    <span className="rounded-full border border-[rgba(205,255,4,0.22)] px-2.5 py-1 text-[10px] uppercase tracking-[0.16em] text-sq-brand-action">
                       Unsaved
                     </span>
                   </div>
@@ -1120,7 +1120,7 @@ export function InvoiceWorkspace({
                     <button
                       type="button"
                       onClick={startNewInvoice}
-                      className="rounded-full border border-[rgba(205,255,4,0.22)] px-3 py-1.5 text-xs text-[var(--sq-brand-action)]"
+                      className="rounded-full border border-[rgba(205,255,4,0.22)] px-3 py-1.5 text-xs text-sq-brand-action"
                     >
                       Create draft
                     </button>
@@ -1165,7 +1165,7 @@ export function InvoiceWorkspace({
                       className={cn(
                         "rounded-full border px-3 py-1.5 text-xs transition-colors",
                         draft.partnerEnabled
-                          ? "border-[rgba(205,255,4,0.22)] bg-[rgba(205,255,4,0.1)] text-[var(--sq-brand-action)]"
+                          ? "border-[rgba(205,255,4,0.22)] bg-[rgba(205,255,4,0.1)] text-sq-brand-action"
                           : "border-white/12 text-white/65 hover:border-white/18 hover:text-white",
                       )}
                     >
@@ -1468,7 +1468,7 @@ export function InvoiceWorkspace({
                 <div className="rounded-[18px] border border-dashed border-[rgba(205,255,4,0.24)] bg-[rgba(205,255,4,0.07)] p-3">
                   <div className="flex flex-wrap items-center justify-between gap-3">
                     <div>
-                      <p className="text-[10px] uppercase tracking-[0.22em] text-[var(--sq-brand-action)]/75">
+                      <p className="text-[10px] uppercase tracking-[0.22em] text-sq-brand-action/75">
                         AI review
                       </p>
                       <p className="mt-1 text-sm font-semibold text-white">

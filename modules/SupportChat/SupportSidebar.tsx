@@ -143,7 +143,7 @@ export const SupportSidebar: React.FC<SupportSidebarProps> = ({
                   </div>
 
                   {isUnanswered ? (
-                    <div className="absolute right-3 top-3 rounded-full bg-[rgba(205,255,4,0.16)] px-2 py-0.5 text-[9px] font-semibold uppercase tracking-[0.18em] text-[var(--sq-brand-action)]">
+                    <div className="absolute right-3 top-3 rounded-full bg-[rgba(205,255,4,0.16)] px-2 py-0.5 text-[9px] font-semibold uppercase tracking-[0.18em] text-sq-brand-action">
                       Waiting
                     </div>
                   ) : null}

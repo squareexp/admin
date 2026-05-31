@@ -359,7 +359,7 @@ export function SettingsWorkspace({
             <button
               type="submit"
               disabled={isSaving}
-              className="rounded-[18px] border border-[rgba(205,255,4,0.24)] bg-[rgba(205,255,4,0.12)] px-3.5 py-2.5 text-sm font-medium text-[var(--sq-brand-action)] disabled:opacity-50"
+              className="rounded-[18px] border border-[rgba(205,255,4,0.24)] bg-[rgba(205,255,4,0.12)] px-3.5 py-2.5 text-sm font-medium text-sq-brand-action disabled:opacity-50"
             >
               {isSaving ? "Saving settings..." : "Save settings"}
             </button>

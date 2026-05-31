@@ -18,6 +18,7 @@ const initialState = { error: "", message: "", success: false };
 function ResetPasswordForm() {
   const params = useSearchParams();
   const token = params.get("token") || "";
+  const provider = params.get("provider") || "";
 
   const [requestState, requestAction, isRequesting] = useActionState(
     passwordResetRequestAction,
@@ -92,6 +93,7 @@ function ResetPasswordForm() {
       {token ? (
         <form action={confirmAction} className="space-y-5">
           <input type="hidden" name="token" value={token} />
+          <input type="hidden" name="provider" value={provider} />
           <Input
             name="newPassword"
             type="password"

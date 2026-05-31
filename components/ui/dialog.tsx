@@ -1,113 +1,119 @@
-"use client"
+"use client";
 
-import * as React from "react"
-import * as DialogPrimitive from "@radix-ui/react-dialog"
-import { X } from "lucide-react"
+import * as React from "react";
+import { Modal, useOverlayState } from "@heroui/react";
+import { X } from "lucide-react";
+import { cn } from "@/lib/utils";
 
-import { glassDialogCloseClass, glassDialogContentClass } from "@/components/ui/glass"
-import { cn } from "@/lib/utils"
+type DialogContextValue = ReturnType<typeof useOverlayState>;
 
-const Dialog = DialogPrimitive.Root
+const DialogContext = React.createContext<DialogContextValue | null>(null);
 
-const DialogTrigger = DialogPrimitive.Trigger
+type DialogProps = {
+  children: React.ReactNode;
+  defaultOpen?: boolean;
+  onOpenChange?: (open: boolean) => void;
+  open?: boolean;
+};
 
-const DialogPortal = DialogPrimitive.Portal
+function Dialog({ children, defaultOpen, onOpenChange, open }: DialogProps) {
+  const state = useOverlayState({
+    defaultOpen,
+    isOpen: open,
+    onOpenChange,
+  });
 
-const DialogClose = DialogPrimitive.Close
+  return (
+    <DialogContext.Provider value={state}>
+      <Modal state={state}>{children}</Modal>
+    </DialogContext.Provider>
+  );
+}
+
+const DialogTrigger = Modal.Trigger;
+const DialogPortal = ({ children }: { children: React.ReactNode }) => <>{children}</>;
+const DialogClose = Modal.CloseTrigger;
 
 const DialogOverlay = React.forwardRef<
-  React.ElementRef<typeof DialogPrimitive.Overlay>,
-  React.ComponentPropsWithoutRef<typeof DialogPrimitive.Overlay>
->(({ className, ...props }, ref) => (
-  <DialogPrimitive.Overlay
+  HTMLDivElement,
+  React.ComponentProps<typeof Modal.Backdrop>
+>(({ className, children, ...props }, ref) => (
+  <Modal.Backdrop
     ref={ref}
-    className={cn(
-      "fixed inset-0 z-50 bg-black/80  data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0",
-      className
-    )}
+    className={cn("fixed inset-0 z-50 bg-black/80", className)}
     {...props}
-  />
-))
-DialogOverlay.displayName = DialogPrimitive.Overlay.displayName
+  >
+    {children}
+  </Modal.Backdrop>
+));
+DialogOverlay.displayName = "DialogOverlay";
 
 const DialogContent = React.forwardRef<
-  React.ElementRef<typeof DialogPrimitive.Content>,
-  React.ComponentPropsWithoutRef<typeof DialogPrimitive.Content>
->(({ className, children, ...props }, ref) => (
-  <DialogPortal>
-    <DialogOverlay />
-    <DialogPrimitive.Content
-      ref={ref}
-      className={cn(
-        `${glassDialogContentClass} fixed left-[50%] top-[50%] z-50 grid w-full max-w-lg translate-x-[-50%] translate-y-[-50%] gap-4 p-6 duration-200 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[state=closed]:slide-out-to-left-1/2 data-[state=closed]:slide-out-to-top-[48%] data-[state=open]:slide-in-from-left-1/2 data-[state=open]:slide-in-from-top-[48%]`,
-        className
-      )}
-      {...props}
-    >
-      {children}
-      <DialogPrimitive.Close className={glassDialogCloseClass}>
-        <X className="h-4 w-4" />
-        <span className="sr-only">Close</span>
-      </DialogPrimitive.Close>
-    </DialogPrimitive.Content>
-  </DialogPortal>
-))
-DialogContent.displayName = DialogPrimitive.Content.displayName
+  HTMLDivElement,
+  Omit<React.ComponentProps<typeof Modal.Dialog>, "children"> & {
+    children: React.ReactNode;
+  }
+>(({ className, children, ...props }, ref) => {
+  const state = React.useContext(DialogContext);
+
+  return (
+    <Modal.Backdrop isDismissable>
+      <Modal.Container>
+        <Modal.Dialog
+          className={cn("grid w-full max-w-lg gap-4 p-6", className)}
+          {...props}
+        >
+          <div ref={ref} className="contents">
+            {children}
+            <Modal.CloseTrigger
+              aria-label="Close"
+              className="absolute right-4 top-4 inline-flex h-9 w-9 items-center justify-center rounded-full border border-white/10 bg-white/5 text-white/60 hover:bg-white/10 hover:text-white"
+              onPress={() => state?.close()}
+            >
+              <X className="h-4 w-4" />
+            </Modal.CloseTrigger>
+          </div>
+        </Modal.Dialog>
+      </Modal.Container>
+    </Modal.Backdrop>
+  );
+});
+DialogContent.displayName = "DialogContent";
 
 const DialogHeader = ({
   className,
   ...props
 }: React.HTMLAttributes<HTMLDivElement>) => (
-  <div
-    className={cn(
-      "flex flex-col space-y-1.5 text-center sm:text-left",
-      className
-    )}
-    {...props}
-  />
-)
-DialogHeader.displayName = "DialogHeader"
+  <div className={cn("flex flex-col space-y-1.5 text-center sm:text-left", className)} {...props} />
+);
+DialogHeader.displayName = "DialogHeader";
 
 const DialogFooter = ({
   className,
   ...props
 }: React.HTMLAttributes<HTMLDivElement>) => (
   <div
-    className={cn(
-      "flex flex-col-reverse sm:flex-row sm:justify-end sm:space-x-2",
-      className
-    )}
+    className={cn("flex flex-col-reverse sm:flex-row sm:justify-end sm:space-x-2", className)}
     {...props}
   />
-)
-DialogFooter.displayName = "DialogFooter"
+);
+DialogFooter.displayName = "DialogFooter";
 
 const DialogTitle = React.forwardRef<
-  React.ElementRef<typeof DialogPrimitive.Title>,
-  React.ComponentPropsWithoutRef<typeof DialogPrimitive.Title>
+  HTMLHeadingElement,
+  React.ComponentProps<typeof Modal.Heading>
 >(({ className, ...props }, ref) => (
-  <DialogPrimitive.Title
-    ref={ref}
-    className={cn(
-      "text-lg font-semibold leading-none tracking-tight",
-      className
-    )}
-    {...props}
-  />
-))
-DialogTitle.displayName = DialogPrimitive.Title.displayName
+  <Modal.Heading ref={ref} className={cn("text-lg font-semibold leading-none tracking-tight", className)} {...props} />
+));
+DialogTitle.displayName = "DialogTitle";
 
 const DialogDescription = React.forwardRef<
-  React.ElementRef<typeof DialogPrimitive.Description>,
-  React.ComponentPropsWithoutRef<typeof DialogPrimitive.Description>
+  HTMLParagraphElement,
+  React.HTMLAttributes<HTMLParagraphElement>
 >(({ className, ...props }, ref) => (
-  <DialogPrimitive.Description
-    ref={ref}
-    className={cn("text-sm text-muted-foreground", className)}
-    {...props}
-  />
-))
-DialogDescription.displayName = DialogPrimitive.Description.displayName
+  <p ref={ref} className={cn("text-sm text-muted-foreground", className)} {...props} />
+));
+DialogDescription.displayName = "DialogDescription";
 
 export {
   Dialog,
@@ -120,4 +126,4 @@ export {
   DialogFooter,
   DialogTitle,
   DialogDescription,
-}
+};

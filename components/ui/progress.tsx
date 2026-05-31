@@ -1,28 +1,25 @@
-"use client"
+"use client";
 
-import * as React from "react"
-import * as ProgressPrimitive from "@radix-ui/react-progress"
-
-import { cn } from "@/lib/utils"
+import * as React from "react";
+import { ProgressBar as HeroProgressBar } from "@heroui/react";
+import { cn } from "@/lib/utils";
 
 const Progress = React.forwardRef<
-  React.ElementRef<typeof ProgressPrimitive.Root>,
-  React.ComponentPropsWithoutRef<typeof ProgressPrimitive.Root>
+  HTMLDivElement,
+  React.ComponentProps<typeof HeroProgressBar>
 >(({ className, value, ...props }, ref) => (
-  <ProgressPrimitive.Root
+  <HeroProgressBar
     ref={ref}
-    className={cn(
-      "relative h-2 w-full overflow-hidden rounded-full bg-primary/20",
-      className
-    )}
+    aria-label={props["aria-label"] ?? "Progress"}
+    className={cn("w-full", className)}
+    value={value}
     {...props}
   >
-    <ProgressPrimitive.Indicator
-      className="h-full w-full flex-1 bg-primary transition-all"
-      style={{ transform: `translateX(-${100 - (value || 0)}%)` }}
-    />
-  </ProgressPrimitive.Root>
-))
-Progress.displayName = ProgressPrimitive.Root.displayName
+    <HeroProgressBar.Track className="h-2 rounded-full bg-primary/20">
+      <HeroProgressBar.Fill className="rounded-full bg-primary" />
+    </HeroProgressBar.Track>
+  </HeroProgressBar>
+));
+Progress.displayName = "Progress";
 
-export { Progress }
+export { Progress };

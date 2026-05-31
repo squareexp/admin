@@ -170,7 +170,7 @@ function renderInlineText(text: string) {
       return (
         <code
           key={`inline-code-${index}`}
-          className="rounded-full border border-white/10 bg-black/30 px-2 py-0.5 font-mono text-[0.92em] text-[var(--sq-brand-action)]"
+          className="rounded-full border border-white/10 bg-black/30 px-2 py-0.5 font-mono text-[0.92em] text-sq-brand-action"
         >
           {part.slice(1, -1)}
         </code>
@@ -212,9 +212,9 @@ function CodeSegment({
   segment: Extract<ChatMessageSegment, { type: "code" }>;
 }) {
   const icon = segment.terminal ? (
-    <TerminalSquare size={14} className="text-[var(--sq-brand-action)]" />
+    <TerminalSquare size={14} className="text-sq-brand-action" />
   ) : (
-    <Code2 size={14} className="text-[var(--sq-brand-action)]" />
+    <Code2 size={14} className="text-sq-brand-action" />
   );
 
   return (
@@ -371,7 +371,7 @@ export function ChatMessageBubble({
                   className={cn(
                     "inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 text-[11px] transition-all",
                     reaction.mine
-                      ? "border-[rgba(205,255,4,0.24)] bg-[rgba(205,255,4,0.12)] text-[var(--sq-brand-action)]"
+                      ? "border-[rgba(205,255,4,0.24)] bg-[rgba(205,255,4,0.12)] text-sq-brand-action"
                       : "border-white/10 bg-white/5 text-white/70 hover:bg-white/10 hover:text-white",
                   )}
                   title={reaction.userNames.join(", ")}

@@ -498,7 +498,7 @@ export function TasksWorkspace({
             <button
               type="submit"
               disabled={isSubmitting || !draftTitle.trim()}
-              className="w-full rounded-[12px] border border-[rgba(205,255,4,0.28)] bg-[rgba(205,255,4,0.12)] px-4 py-2.5 text-[13px] font-medium text-[var(--sq-brand-action)] transition hover:bg-[rgba(205,255,4,0.18)] disabled:opacity-50"
+              className="w-full rounded-[12px] border border-[rgba(205,255,4,0.28)] bg-[rgba(205,255,4,0.12)] px-4 py-2.5 text-[13px] font-medium text-sq-brand-action transition hover:bg-[rgba(205,255,4,0.18)] disabled:opacity-50"
             >
               {isSubmitting ? "Creating task..." : "Create task"}
             </button>
@@ -578,7 +578,7 @@ export function TasksWorkspace({
                               void loadTaskBin();
                             })
                           }
-                          className="rounded-full border border-[rgba(205,255,4,0.28)] bg-[rgba(205,255,4,0.1)] px-3 py-1.5 text-[11px] text-[var(--sq-brand-action)]"
+                          className="rounded-full border border-[rgba(205,255,4,0.28)] bg-[rgba(205,255,4,0.1)] px-3 py-1.5 text-[11px] text-sq-brand-action"
                         >
                           Restore
                         </button>
@@ -616,7 +616,7 @@ export function TasksWorkspace({
                     <div className="flex flex-wrap items-start justify-between gap-3">
                       <div className="flex-1 cursor-pointer" onClick={() => setSelectedTaskId(task.id)}>
                         <div className="flex flex-wrap items-center gap-1.5">
-                          <p className="text-[13px] font-semibold text-white hover:text-[var(--sq-brand-action)] transition-colors">{task.title}</p>
+                          <p className="text-[13px] font-semibold text-white hover:text-sq-brand-action transition-colors">{task.title}</p>
                           <span
                             className={cn(
                               "rounded-full border px-2 py-0.5 text-[9px] uppercase tracking-[0.14em]",
@@ -639,7 +639,7 @@ export function TasksWorkspace({
                             </span>
                           ) : null}
                           {taskTyping?.typing ? (
-                            <span className="inline-flex items-center gap-1 rounded-full border border-[rgba(205,255,4,0.22)] bg-[rgba(205,255,4,0.08)] px-2 py-0.5 text-[9px] uppercase tracking-[0.14em] text-[var(--sq-brand-action)]">
+                            <span className="inline-flex items-center gap-1 rounded-full border border-[rgba(205,255,4,0.22)] bg-[rgba(205,255,4,0.08)] px-2 py-0.5 text-[9px] uppercase tracking-[0.14em] text-sq-brand-action">
                               <span className="flex items-center gap-1">
                                 <span className="h-1 w-1 animate-pulse rounded-full bg-current" />
                                 <span className="h-1 w-1 animate-pulse rounded-full bg-current [animation-delay:150ms]" />
@@ -748,7 +748,7 @@ export function TasksWorkspace({
                                 status: task.status === "todo" ? "in_progress" : task.status,
                               })
                             }
-                            className="mt-1.5 w-full rounded-[10px] border border-[rgba(205,255,4,0.22)] px-3 py-2 text-[12px] text-[var(--sq-brand-action)] disabled:opacity-50"
+                            className="mt-1.5 w-full rounded-[10px] border border-[rgba(205,255,4,0.22)] px-3 py-2 text-[12px] text-sq-brand-action disabled:opacity-50"
                           >
                             {isPending ? "Updating..." : "+10% progress"}
                           </button>
@@ -825,7 +825,7 @@ export function TasksWorkspace({
                             tags: seed.tags,
                           })
                         }
-                        className="rounded-full border border-[rgba(205,255,4,0.22)] px-2.5 py-1 text-[11px] text-[var(--sq-brand-action)]"
+                        className="rounded-full border border-[rgba(205,255,4,0.22)] px-2.5 py-1 text-[11px] text-sq-brand-action"
                       >
                         Create
                       </button>
@@ -917,7 +917,7 @@ export function TasksWorkspace({
             </div>
 
             {selectedTaskTyping?.typing ? (
-              <div className="mb-3 inline-flex items-center gap-2 rounded-full border border-[rgba(205,255,4,0.22)] bg-[rgba(205,255,4,0.08)] px-2.5 py-1 text-[10px] uppercase tracking-[0.14em] text-[var(--sq-brand-action)]">
+              <div className="mb-3 inline-flex items-center gap-2 rounded-full border border-[rgba(205,255,4,0.22)] bg-[rgba(205,255,4,0.08)] px-2.5 py-1 text-[10px] uppercase tracking-[0.14em] text-sq-brand-action">
                 <span className="flex items-center gap-1">
                   <span className="h-1 w-1 animate-pulse rounded-full bg-current" />
                   <span className="h-1 w-1 animate-pulse rounded-full bg-current [animation-delay:150ms]" />
@@ -1008,7 +1008,7 @@ export function TasksWorkspace({
                           setChecklistDraft("");
                         }
                       }}
-                      className="rounded-[10px] border border-[rgba(205,255,4,0.22)] px-3 py-1.5 text-[11px] text-[var(--sq-brand-action)] disabled:opacity-50"
+                      className="rounded-[10px] border border-[rgba(205,255,4,0.22)] px-3 py-1.5 text-[11px] text-sq-brand-action disabled:opacity-50"
                     >
                       Add
                     </button>
@@ -1057,7 +1057,7 @@ export function TasksWorkspace({
                   />
                   <button
                     onClick={submitComment}
-                    className="rounded-[10px] border border-[rgba(205,255,4,0.22)] px-3 py-1.5 text-[11px] text-[var(--sq-brand-action)]"
+                    className="rounded-[10px] border border-[rgba(205,255,4,0.22)] px-3 py-1.5 text-[11px] text-sq-brand-action"
                   >
                     Send
                   </button>

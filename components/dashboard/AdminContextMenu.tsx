@@ -286,7 +286,7 @@ function MenuItemComponent({
         danger
           ? "text-rose-400 hover:bg-rose-500/10"
           : active
-            ? "text-[var(--sq-brand-action)] bg-[rgba(205,255,4,0.06)]"
+            ? "text-sq-brand-action bg-[rgba(205,255,4,0.06)]"
             : "text-white/70 hover:bg-white/4 hover:text-white",
       )}
     >
