@@ -36,9 +36,10 @@ export function proxy(request: NextRequest) {
 
   const externalOrigin = getExternalOrigin(request);
 
-  // Redirect to login if no token and not on a public route
+  // Redirect to the Base IdP start route if no token and not on a public route.
   if (!token && !isPublicRoute) {
-    const loginUrl = new URL('/session/access', externalOrigin);
+    const loginUrl = new URL('/api/auth/start', externalOrigin);
+    loginUrl.searchParams.set('return_to', `${pathname}${request.nextUrl.search}`);
     return NextResponse.redirect(loginUrl);
   }
 

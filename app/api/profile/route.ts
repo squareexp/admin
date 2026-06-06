@@ -31,11 +31,8 @@ export async function GET() {
     const data = await response.json();
     const user = data.user ?? data;
     return NextResponse.json({
-      id: user.id,
-      username: user.name || user.username,
-      email: user.email,
-      role: user.role,
-      twoFactorEnabled: user.twoFactorEnabled,
+      ...user,
+      username: user.username || user.name,
     });
   } catch (error) {
     console.error('Profile fetch error:', error);

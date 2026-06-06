@@ -38,7 +38,7 @@ export function AuthFooter({
         </div>
       </div>
 
-      <div className="flex flex-wrap items-center justify-center gap-5 text-[11px] font-medium uppercase tracking-[0.1em] text-white/35">
+      <div className="flex flex-wrap items-center justify-center gap-5 text-[11px] font-medium uppercase tracking-widest text-white/35">
         {links.map((link) => (
           <Link key={link.href} href={link.href} className="transition-colors hover:text-white">
             {link.label}

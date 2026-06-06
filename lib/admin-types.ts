@@ -16,8 +16,19 @@ export interface UserProfile {
   id: string;
   username: string;
   email: string;
+  name?: string;
   role?: string;
+  isActive?: boolean;
+  createdAt?: string;
+  updatedAt?: string;
   twoFactorEnabled?: boolean;
+  failedLoginAttempts?: number;
+  lockedUntil?: string | null;
+  auth?: {
+    provider?: string;
+    scopes?: string[];
+    assuranceLevel?: number;
+  };
 }
 
 export interface AdminWorkspaceSnapshot {

@@ -44,7 +44,7 @@ AccordionItem.displayName = "AccordionItem";
 const AccordionTrigger = React.forwardRef<
   HTMLButtonElement,
   Omit<React.ComponentProps<typeof HeroAccordion.Trigger>, "children"> & {
-    children?: React.ReactNode;
+    children?: any;
   }
 >(({ className, children, ...props }, ref) => (
   <HeroAccordion.Heading className="flex">
@@ -56,7 +56,7 @@ const AccordionTrigger = React.forwardRef<
       )}
       {...(props as unknown as Partial<React.ComponentProps<typeof HeroAccordion.Trigger>>)}
     >
-      {children}
+      {children as any}
       <HeroAccordion.Indicator />
     </HeroAccordion.Trigger>
   </HeroAccordion.Heading>

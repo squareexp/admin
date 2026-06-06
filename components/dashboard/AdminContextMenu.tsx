@@ -16,7 +16,7 @@ import {
   Refresh,
   VolumeHigh,
   VolumeSlash,
-  InfoCircle,
+  
 } from "iconsax-react";
 import { cn } from "@/lib/utils";
 import type { AdminSection } from "@/lib/admin-types";
@@ -29,16 +29,6 @@ type IconsaxIcon = React.ComponentType<{
   className?: string;
 }>;
 
-interface MenuItem {
-  id: string;
-  label: string;
-  shortcut?: string;
-  icon?: IconsaxIcon;
-  danger?: boolean;
-  separator?: boolean;
-  children?: MenuItem[];
-  action?: () => void;
-}
 
 interface AdminContextMenuProps {
   activeSection: AdminSection;
@@ -152,7 +142,7 @@ export function AdminContextMenu({
   return (
     <div
       ref={menuRef}
-      className="fixed z-[9999] w-[220px] rounded-[14px] border border-white/12 bg-[#0c0f18]/95 backdrop-blur-xl shadow-[0_20px_60px_rgba(0,0,0,0.5)] py-1.5 animate-in fade-in zoom-in-95 duration-150"
+      className="fixed z-[9999] w-55 rounded-[14px] border border-white/12 bg-[#0c0f18]/95 backdrop-blur-xl shadow-[0_20px_60px_rgba(0,0,0,0.5)] py-1.5 animate-in fade-in zoom-in-95 duration-150"
       style={{ left: position.x, top: position.y }}
     >
       {userName ? (

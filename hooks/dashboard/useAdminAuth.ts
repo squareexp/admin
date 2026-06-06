@@ -26,7 +26,10 @@ export function useAdminAuth() {
       })
       .catch((err) => {
         console.log("Auth check failed:", err);
-        router.push("/session/access");
+        const returnTo = typeof window !== "undefined"
+          ? encodeURIComponent(`${window.location.pathname}${window.location.search}`)
+          : encodeURIComponent("/");
+        router.push(`/api/auth/start?return_to=${returnTo}`);
       });
   }, [router]);
 
@@ -35,10 +38,13 @@ export function useAdminAuth() {
       return;
     }
 
-    fetch("/api/logout", { method: "POST" })
+      fetch("/api/logout", { method: "POST" })
       .catch(() => undefined)
       .finally(() => {
-        router.replace("/session/access");
+        const returnTo = typeof window !== "undefined"
+          ? encodeURIComponent(`${window.location.pathname}${window.location.search}`)
+          : encodeURIComponent("/");
+        router.replace(`/api/auth/start?return_to=${returnTo}`);
       });
   }, [isUnauthorized, router]);
 
@@ -46,7 +52,10 @@ export function useAdminAuth() {
     try {
       await fetch("/api/logout", { method: "POST" });
       router.refresh();
-      router.push("/session/access");
+      const returnTo = typeof window !== "undefined"
+        ? encodeURIComponent(`${window.location.pathname}${window.location.search}`)
+        : encodeURIComponent("/");
+      router.push(`/api/auth/start?return_to=${returnTo}`);
     } catch (error) {
       console.error("Logout failed:", error);
     }

@@ -51,7 +51,7 @@ const AlertDialogHeader = ({
 }: React.HTMLAttributes<HTMLDivElement>) => (
   <HeroAlertDialog.Header
     className={cn("flex flex-col space-y-2 text-center sm:text-left", className)}
-    {...props}
+    {...props as any}
   />
 );
 AlertDialogHeader.displayName = "AlertDialogHeader";
@@ -62,7 +62,7 @@ const AlertDialogFooter = ({
 }: React.HTMLAttributes<HTMLDivElement>) => (
   <HeroAlertDialog.Footer
     className={cn("flex flex-col-reverse sm:flex-row sm:justify-end sm:space-x-2", className)}
-    {...props}
+    {...props as any}
   />
 );
 AlertDialogFooter.displayName = "AlertDialogFooter";
@@ -99,7 +99,7 @@ const AlertDialogCancel = ({
 }: React.ComponentProps<typeof HeroAlertDialog.CloseTrigger>) => (
   <HeroAlertDialog.CloseTrigger
     className={cn(buttonVariants({ variant: "outline" }), "mt-2 sm:mt-0", className)}
-    {...props}
+    {...props as any}
   />
 );
 AlertDialogCancel.displayName = "AlertDialogCancel";
